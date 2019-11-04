@@ -67,7 +67,7 @@ def stylize_helper(content_img, style_img):
     return hub_module(tf.constant(content_img), tf.constant(style_img))[0]
 
 
-def collage_maker(content_img, num_rows, num_cols, style_paths):
+def collage_maker(content_img, style_paths, num_rows, num_cols):
     '''
     More work:
         needs to also handle the case that no style is applied to a segment
@@ -133,10 +133,10 @@ def collage_maker(content_img, num_rows, num_cols, style_paths):
     return output
 
 
-def stylize(content_img, num_rows=None, num_cols=None, styles=None):
+def stylize(content_img, styles, num_rows=None, num_cols=None):
 
     if num_rows and num_cols:
-        collage = collage_maker(content_img, num_rows, num_cols, styles)
+        collage = collage_maker(content_img, styles, num_rows, num_cols)
         # need to reshape image here if it doesn't match the input size
         return tensor_to_image(collage)
 
