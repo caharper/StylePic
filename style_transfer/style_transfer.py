@@ -36,7 +36,6 @@ def calc_resize_shape(x_shape, y_shape, num_rows, num_cols):
 
     return (x_shape, y_shape)
 
-    
 # Making the edit in load image since we are saving the file to our db and then loading it in
 def load_img(path_to_img, num_rows, num_cols):
     # load just like normal
@@ -45,14 +44,16 @@ def load_img(path_to_img, num_rows, num_cols):
     img = tf.image.convert_image_dtype(img, tf.float32)
     shape = tf.cast(tf.shape(img)[:-1], tf.float32)
 
+    orig_shape = img.shape
+
     # resize if need be
     resize_shape = calc_resize_shape(img.shape[0], img.shape[1], num_rows, num_cols)
 
     img = tf.image.resize(img, resize_shape)
 
     img = img[tf.newaxis, :]
-
-    return img
+    
+    return img, orig_shape
 
 def np_tensor(tensor):
     tensor = tensor*255
@@ -162,17 +163,18 @@ def collage_maker(content_img, style_paths, num_rows, num_cols):
 
     return output
 
-
-def stylize(content_img, styles, num_rows=None, num_cols=None):
+def stylize(content_img, orig_shape, styles, num_rows=None, num_cols=None):
 
     if num_rows and num_cols:
         collage = collage_maker(content_img, styles, num_rows, num_cols)
         # need to reshape image here if it doesn't match the input size
-        return tensor_to_image(collage)
+        img = tensor_to_image(collage)
+        return img.resize(orig_shape)
 
     else:
         styled = stylize_helper(content_img, styles[0])
-        return tensor_to_image(styled)
+        img = tensor_to_image(styled)
+        return img.resize(orig_shape)
 
 
 
@@ -222,6 +224,7 @@ def get_styled_image(file_path, styles, num_rows=1, num_cols=1):
 
     """
 
-    img = load_img(file_path, num_rows, num_cols)
+    img, orig_shape = load_img(file_path, num_rows, num_cols)
 
-    return stylize(img, styles, num_rows, num_cols)
+    return stylize(img, orig_shape, styles, num_rows, num_cols)
+
