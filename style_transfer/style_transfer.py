@@ -8,18 +8,48 @@ import PIL.Image
 from keras import backend as K
 
 
-hub_module = hub.load('https://tfhub.dev/google/magenta/arbitrary-image-stylization-v1-256/1')
+hub_module = hub.load('https://tfhub.dev/google/magenta/arbitrary-image-stylization-v1-256/2')
 
 
+# Based on what I've seen the code rounds up to the next multiple of the image and then rounds to the next even number if odd
+def calc_resize_shape(x_shape, y_shape, num_rows, num_cols):
 
-def load_img(path_to_img, num_rows=1, num_cols=1):
+    # resize to next even multiple for x-dim
+    if(x_shape%num_rows != 0):
+        #this is resizing to next multiple, regardless if output is even or not
+        x_shape = int(x_shape + (num_rows - x_shape % num_rows))
+
+        # now make sure that the values for x are even when divided
+        x_divided = int(x_shape/num_rows)
+        # if odd
+        if((x_divided)%2):
+            x_shape = (x_divided + 1) * num_rows
+
+    if(y_shape%num_cols != 0):
+        y_shape = int(y_shape + (num_cols - y_shape % num_cols))
+
+        # now make sure that the values for x are even when divided
+        y_divided = int(y_shape/num_cols)
+        # if odd
+        if((x_divided)%2):
+            y_shape = (y_divided + 1) * num_cols
+
+    return (x_shape, y_shape)
+
+    
+# Making the edit in load image since we are saving the file to our db and then loading it in
+def load_img(path_to_img, num_rows, num_cols):
+    # load just like normal
     img = tf.io.read_file(path_to_img)
     img = tf.image.decode_image(img, channels=3)
     img = tf.image.convert_image_dtype(img, tf.float32)
-
-    # need to resize the image here if rows/cols don't split evenly
-
     shape = tf.cast(tf.shape(img)[:-1], tf.float32)
+
+    # resize if need be
+    resize_shape = calc_resize_shape(img.shape[0], img.shape[1], num_rows, num_cols)
+
+    img = tf.image.resize(img, resize_shape)
+
     img = img[tf.newaxis, :]
 
     return img
@@ -192,5 +222,6 @@ def get_styled_image(file_path, styles, num_rows=1, num_cols=1):
 
     """
 
-    img = load_img(file_path)
+    img = load_img(file_path, num_rows, num_cols)
+
     return stylize(img, styles, num_rows, num_cols)
