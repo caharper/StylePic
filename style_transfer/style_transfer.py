@@ -51,6 +51,7 @@ def load_img(path_to_img, num_rows, num_cols):
     img = tf.image.resize(img, resize_shape)
 
     img = img[tf.newaxis, :]
+
     return img
 
 def np_tensor(tensor):
@@ -222,4 +223,5 @@ def get_styled_image(file_path, styles, num_rows=1, num_cols=1):
     """
 
     img = load_img(file_path, num_rows, num_cols)
+
     return stylize(img, styles, num_rows, num_cols)
