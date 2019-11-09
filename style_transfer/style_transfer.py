@@ -7,8 +7,6 @@ import numpy as np
 import PIL.Image
 from keras import backend as K
 
-import backend
-
 hub_module = hub.load('https://tfhub.dev/google/magenta/arbitrary-image-stylization-v1-256/2')
 
 
