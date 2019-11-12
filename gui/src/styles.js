@@ -53,5 +53,17 @@ export default StyleSheet.create({
     galleryImage: { 
         width: 75, 
         height: 75 
-    }
+    },
+    styleImageContainer: { 
+        width: Dimensions.get('window').width,
+        height: Dimensions.get('window').height,
+    },
+    styleImage: { 
+        width: Dimensions.get('window').width,
+        height: Dimensions.get('window').height,
+        zIndex: -1
+    },
+      backButton: {
+        margin: 15
+      },
 });
