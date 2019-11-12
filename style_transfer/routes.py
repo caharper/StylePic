@@ -1,7 +1,7 @@
 from flask import request, jsonify, Response, render_template
 from PIL import Image
 from flask import Flask
-from werkzeug import secure_filename
+# from werkzeug import secure_filename
 import style_transfer
 
 PATH_TO_TEST_IMAGES_DIR = './images'
@@ -15,6 +15,8 @@ Link to a stackoverflow post where the guy did something very similar to what we
 
 Also here is some documentation on flask and how to test it and get it to run: 
 https://www.twilio.com/docs/usage/tutorials/how-to-set-up-your-python-and-flask-development-environment
+
+Another link for reference: https://github.com/matt-sm/create-react-flask
 '''
 
 
