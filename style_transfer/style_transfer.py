@@ -5,10 +5,13 @@ import tensorflow_hub as hub
 import cv2 as cv
 import numpy as np
 import PIL.Image
-from keras import backend as K
+import os
 
 import backend
 
+# Has to have this for some reason...make sure to do this first time you run the
+# code.
+os.environ["TFHUB_CACHE_DIR"] = '/tmp/tfhub'
 hub_module = hub.load('https://tfhub.dev/google/magenta/arbitrary-image-stylization-v1-256/2')
 
 
@@ -39,13 +42,19 @@ def calc_resize_shape(x_shape, y_shape, num_rows, num_cols):
 
 # Making the edit in load image since we are saving the file to our db and then loading it in
 def load_img(path_to_img, num_rows, num_cols):
+    print('**************************')
     # load just like normal
     img = tf.io.read_file(path_to_img)
     img = tf.image.decode_image(img, channels=3)
     img = tf.image.convert_image_dtype(img, tf.float32)
     shape = tf.cast(tf.shape(img)[:-1], tf.float32)
 
-    orig_shape = img.shape
+
+    # if i edit for PIL images
+    # the above code results in an eager tensor of shape (height, width, channels)
+    # img = tf.convert_to_tensor(path_to_img)
+
+    orig_shape = (img.shape[1], img.shape[0])
 
     # resize if need be
     resize_shape = calc_resize_shape(img.shape[0], img.shape[1], num_rows, num_cols)
@@ -53,7 +62,7 @@ def load_img(path_to_img, num_rows, num_cols):
     img = tf.image.resize(img, resize_shape)
 
     img = img[tf.newaxis, :]
-    
+
     return img, orig_shape
 
 def np_tensor(tensor):
@@ -116,8 +125,9 @@ def collage_maker(content_img, style_paths, num_rows, num_cols):
 
     # initialize the output
     segment, style_path = segment_styles[0]
+
     if style_path is not None:
-        style = load_img(style_path)
+        style, _ = load_img(style_path, num_rows, num_cols)
         output = stylize_helper(segment, style)
         out_shape = output.shape
 
@@ -141,7 +151,7 @@ def collage_maker(content_img, style_paths, num_rows, num_cols):
             styled_segment = tf.constant(segment)
 
         else:
-            style = load_img(style_path)
+            style, _ = load_img(style_path, num_rows, num_cols)
             styled_segment = stylize_helper(segment, style)
 
         # keeps track of where to combine to the final output image
@@ -229,3 +239,17 @@ def get_styled_image(file_path, styles, num_rows=1, num_cols=1):
 
     return stylize(img, orig_shape, styles, num_rows, num_cols)
 
+# Example calling
+# styles = ['./../../code/test_images/j_pollock.jpg', './../../code/test_images/lillies.jpg']
+# output_img = get_styled_image('./../../code/test_images/dogs.jpg', styles, num_rows=2, num_cols=1)
+# output_img.save('./../../../../../../../out_img.jpg')
+
+img = PIL.Image.open('./../../code/test_images/j_pollock.jpg')
+print(type(img))
+print(img)
+
+# Not the most effieicnt thing, but if it is a PIL image passed, just make it a numpy array then make it a tensor
+# just do an "if PIL image then convert, else, run my code for reading in an image with tensorflow for the styles"
+img = np.asarray(PIL.Image.open('./../../code/test_images/j_pollock.jpg'))
+print(type(img))
+print(img.shape)
