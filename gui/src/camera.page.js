@@ -2,10 +2,12 @@ import React from 'react';
 import { View, Text } from 'react-native';
 import { Camera } from 'expo-camera';
 import * as Permissions from 'expo-permissions';
+import axios from 'axios';
 
 import styles from './styles';
 import Toolbar from './toolbar.component';
 import Gallery from './gallery.component';
+
 
 export default class CameraPage extends React.Component {
     camera = null;
@@ -29,9 +31,27 @@ export default class CameraPage extends React.Component {
             this.camera.stopRecording();
     };
 
+    submit(){
+        console.log(this.state.captures[0]);
+        let form_data = new FormData();
+        form_data.append('image', this.state.captures[0]);
+        let url = 'http://localhost:5000/upload';
+        axios.post(url, form_data, {
+          headers: {
+            'content-type': 'multipart/form-data'
+          }
+        })
+            .then(res => {
+              console.log(res.data);
+            })
+            .catch(err => console.log(err))
+    };
+
+
     handleShortCapture = async () => {
         const photoData = await this.camera.takePictureAsync();
         this.setState({ capturing: false, captures: [photoData, ...this.state.captures] })
+        this.submit();
         //change scene once photo is taken
         this.props.history.push({
             pathname: '/style.page',
