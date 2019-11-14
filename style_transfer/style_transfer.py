@@ -2,12 +2,10 @@ import tensorflow as tf
 tf.enable_eager_execution()
 
 import tensorflow_hub as hub
-import cv2 as cv
+#import cv2 as cv
 import numpy as np
 import PIL.Image
 import os
-
-import backend
 
 # Has to have this for some reason...make sure to do this first time you run the
 # code.
@@ -244,12 +242,12 @@ def get_styled_image(file_path, styles, num_rows=1, num_cols=1):
 # output_img = get_styled_image('./../../code/test_images/dogs.jpg', styles, num_rows=2, num_cols=1)
 # output_img.save('./../../../../../../../out_img.jpg')
 
-img = PIL.Image.open('./../../code/test_images/j_pollock.jpg')
-print(type(img))
-print(img)
-
-# Not the most effieicnt thing, but if it is a PIL image passed, just make it a numpy array then make it a tensor
-# just do an "if PIL image then convert, else, run my code for reading in an image with tensorflow for the styles"
-img = np.asarray(PIL.Image.open('./../../code/test_images/j_pollock.jpg'))
-print(type(img))
-print(img.shape)
+# img = PIL.Image.open('c:./../../code/test_images/j_pollock.jpg')
+# print(type(img))
+# print(img)
+#
+# # Not the most effieicnt thing, but if it is a PIL image passed, just make it a numpy array then make it a tensor
+# # just do an "if PIL image then convert, else, run my code for reading in an image with tensorflow for the styles"
+# img = np.asarray(PIL.Image.open('./../../code/test_images/j_pollock.jpg'))
+# print(type(img))
+# print(img.shape)
