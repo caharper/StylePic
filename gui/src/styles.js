@@ -63,7 +63,16 @@ export default StyleSheet.create({
         height: Dimensions.get('window').height,
         zIndex: -1
     },
-      backButton: {
-        margin: 15
+    backButton: {
+        margin: 15,
+        width: 45,
+        paddingTop: 5,
+        paddingHorizontal: 10,
+        position: "absolute",
+        zIndex: 2,
       },
+    grid: {
+        flexDirection: "row",
+        flexWrap: "wrap",
+    },
 });
