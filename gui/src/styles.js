@@ -75,4 +75,12 @@ export default StyleSheet.create({
         flexDirection: "row",
         flexWrap: "wrap",
     },
+    advanceButton: {
+        width: 45, 
+        height: 50,
+        position: 'absolute',
+        bottom: 10,
+        right: 10,
+        zIndex: 2
+      },
 });

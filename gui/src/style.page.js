@@ -33,6 +33,14 @@ export default class StylePage extends React.Component {
             this.props.location.state.captures.map(({ uri }) => (
                 <View style={styles.styleImageContainer} key={uri}>
                     <ImageBackground source={{ uri }} style={styles.styleImage}>
+                        <TouchableOpacity style={styles.advanceButton} onPress={() =>
+                            this.props.history.push('/')}>
+                            <Ionicons
+                                name="md-arrow-round-forward"
+                                color="white"
+                                size={40}
+                            />
+                        </TouchableOpacity>
                         <TouchableOpacity style={styles.backButton} onPress={() =>
                             this.props.history.push('/')}>
                             <Ionicons
@@ -53,7 +61,6 @@ export default class StylePage extends React.Component {
                             <TouchableOpacity style={styles.piece}/> */}
                             {this.renderPieces()}
                         </View>
-                        
                     </ImageBackground>
                 </View>
             ))
