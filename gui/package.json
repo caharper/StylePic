@@ -20,6 +20,7 @@
     "react-router-native": "^5.1.2"
   },
   "devDependencies": {
+    "@types/react-native": "^0.60.22",
     "babel-preset-expo": "^7.1.0"
   },
   "private": true
