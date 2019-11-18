@@ -12,9 +12,9 @@ import style_transfer
 PATH_TO_TEST_IMAGES_DIR = './images'
 
 # Example calling
-styles = ['./../../groups.PNG', './../../navisworksInstallDirections.PNG']
-output_img = get_styled_image('./../../groups.PNG', styles, num_rows=2, num_cols=1)
-output_img.save('./../out_img.jpg')
+#styles = ['./../../groups.PNG', './../../navisworksInstallDirections.PNG']
+#output_img = get_styled_image('./../../groups.PNG', styles, num_rows=2, num_cols=1)
+#output_img.save('./../out_img.jpg')
 
 '''
 https://stackoverflow.com/questions/43309343/working-with-user-uploaded-image-in-flask
