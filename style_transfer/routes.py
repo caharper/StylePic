@@ -38,7 +38,10 @@ def upload_file():
         #file = request.files['file']
         #print(file)
         #file.save('./../fromGUI_img.jpg')
-        return "done"
+        req_data = request.get_json()
+        temp = req_data['height']
+        return temp
+        #return "done"
     else:
         return "This is a GET bro"
 
