@@ -57,11 +57,29 @@ export default StyleSheet.create({
     styleImageContainer: { 
         width: Dimensions.get('window').width,
         height: Dimensions.get('window').height,
+        justifyContent: 'center',
+        alignItems: 'center'
     },
     styleImage: { 
         width: Dimensions.get('window').width,
         height: Dimensions.get('window').height,
         zIndex: -1
+    },
+    selectingStylesImage: { 
+        width: Dimensions.get('window').width / 1.7,
+        height: Dimensions.get('window').height / 1.7,
+        alignSelf: 'center',
+        bottom: 20,
+        zIndex: -1
+    },
+    slideBarHeader: {
+        alignSelf: 'center',
+    },
+    rowsColsInput: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        marginHorizontal: 16,
+        bottom: 10,
     },
     backButton: {
         margin: 15,
@@ -82,5 +100,14 @@ export default StyleSheet.create({
         bottom: 10,
         right: 10,
         zIndex: 2
-      },
+    },
+    bottom: {
+        position: 'absolute',
+        bottom: 10
+    },
+    textInput: {
+        height: 40,
+        borderColor: 'gray',
+        borderWidth: 1
+    }
 });
