@@ -12,9 +12,9 @@ import style_transfer
 PATH_TO_TEST_IMAGES_DIR = './images'
 
 # Example calling
-styles = ['./../../groups.PNG', './../../navisworksInstallDirections.PNG']
-output_img = get_styled_image('./../../groups.PNG', styles, num_rows=2, num_cols=1)
-output_img.save('./../out_img.jpg')
+#styles = ['./../../groups.PNG', './../../navisworksInstallDirections.PNG']
+#output_img = get_styled_image('./../../groups.PNG', styles, num_rows=2, num_cols=1)
+#output_img.save('./../out_img.jpg')
 
 '''
 https://stackoverflow.com/questions/43309343/working-with-user-uploaded-image-in-flask
@@ -35,10 +35,13 @@ def index():
 @routes.route('/upload', methods = ['GET','POST'])
 def upload_file():
     if request.method == 'POST':
-        file = request.files['file']
-        print(file)
-        file.save('./../fromGUI_img.jpg')
-        return "done"
+        #file = request.files['file']
+        #print(file)
+        #file.save('./../fromGUI_img.jpg')
+        req_data = request.get_json()
+        temp = req_data['height']
+        return temp
+        #return "done"
     else:
         return "This is a GET bro"
 
@@ -57,4 +60,4 @@ def upload_file():
 #     # return render_template('result.html', x, imgpath = sfname)
 #
 if __name__ == "__main__":
-    routes.run()
+    routes.run(host='0.0.0.0')
