@@ -35,9 +35,9 @@ def index():
 @routes.route('/upload', methods = ['GET','POST'])
 def upload_file():
     if request.method == 'POST':
-        file = request.files['file']
-        print(file)
-        file.save('./../fromGUI_img.jpg')
+        #file = request.files['file']
+        #print(file)
+        #file.save('./../fromGUI_img.jpg')
         return "done"
     else:
         return "This is a GET bro"
