@@ -57,4 +57,4 @@ def upload_file():
 #     # return render_template('result.html', x, imgpath = sfname)
 #
 if __name__ == "__main__":
-    routes.run()
+    routes.run(host='0.0.0.0')
