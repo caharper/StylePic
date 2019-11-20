@@ -1,9 +1,10 @@
 import React from 'react'
 import StyleSlideBar from './style-slide-bar'
-import { Text, View, Image, ImageBackground, TouchableOpacity, Dimensions, TextInput } from 'react-native'
+import { Text, View, Image, ImageBackground, TouchableOpacity, Dimensions, TextInput, StatusBar } from 'react-native'
 import { OutlinedTextField } from 'react-native-material-textfield';
 import ColRowsInputs from './col-row-inputs'
 import { Ionicons } from '@expo/vector-icons';
+import GridButton from './grid-button.js'
 
 import styles from './styles';
 
@@ -12,31 +13,22 @@ export default class SelectionPage extends React.Component {
     state = {
         rows: 3,
         cols: 3,
-        //highlight: false
     }
-
-    // highlightButton() {
-    //     this.setState({ highlight: true });
-    //     setTimeout(() => {
-    //         this.setState({ highlight: false });
-    //       }, 1000);
-    // }
 
     renderPieces() {
         const pieces = [];
         for(let i = 0; i < (this.state.rows * this.state.cols); i++){
-            pieces.push(<TouchableOpacity key={i} 
-                style={{
-                    zIndex: 1,
-                    borderWidth: 1,
-                    borderStyle: 'solid',
-                    borderColor: 'white',
-                    width: (Dimensions.get('window').width)/1.5/this.state.rows,
-                    height: (Dimensions.get('window').height)/1.5/this.state.cols,
-                    zIndex: 1
-                }}
-                //onPress={() => this.highlightButton()}
-                />)
+            // pieces.push(<TouchableOpacity key={i} 
+            //     style={{
+            //         zIndex: 1,
+            //         borderWidth: 1,
+            //         borderStyle: 'solid',
+            //         borderColor: 'white',
+            //         width: (Dimensions.get('window').width)/1.5/this.state.rows,
+            //         height: (Dimensions.get('window').height)/1.5/this.state.cols,
+            //         zIndex: 1
+            //     }}/>)
+            pieces.push(<GridButton key={i} rows={this.state.rows} cols={this.state.cols}/>)
         }
         return pieces;
     }
@@ -68,21 +60,16 @@ export default class SelectionPage extends React.Component {
     render () {
         return (
             this.props.location.state.captures.map(({ uri }) => (
-                <View style={{ flex: 1}} key={uri}>
-                    <View>
-                        {/* <ColRowsInputs /> */}
-                    </View>
-                    {/* <View style={{justifyContent: 'center', width: Dimensions.get('window').width}}> */}
+                <View style={{ flex: 1, backgroundColor: 'white'}} key={uri}>
                     <View style={styles.gridContainer}>
                         <View style={{position: 'absolute'}}>
-                            <ImageBackground source={{ uri }} style={styles.selectingStylesImage} id={'img'}>
+                            <ImageBackground source={{ uri }} style={styles.selectingStylesImage}>
                             </ImageBackground>
                         </View>
                         <View style={styles.grid}>
                             {this.renderPieces()}
                         </View>
                     </View>
-                    {/* </View> */}
                     <View style={styles.rowsColsButtonsContainer}>
                         <View style={styles.rowsButtonsContainer}>
                             <TouchableOpacity style={styles.rowsButton} 
