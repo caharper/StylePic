@@ -1,8 +1,9 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, TouchableOpacity } from 'react-native';
 import { Camera } from 'expo-camera';
 import * as Permissions from 'expo-permissions';
 import axios from 'axios';
+import { Ionicons } from '@expo/vector-icons';
 
 import styles from './styles';
 import Toolbar from './toolbar.component';
@@ -35,14 +36,22 @@ export default class CameraPage extends React.Component {
         //console.log(this.state.captures[0]);
         let form_data = new FormData();
         form_data.append('image', this.state.captures[0]);
-        let url = 'http://localhost:5000/upload';
+        let url = 'http://35.226.239.3:5000/upload';
+        //axios.get(url);
+        // axios.get(url)
+        // .then(function (response) {
+        // console.log(response);
+        // })
+        // .catch(function (error) {
+        // console.log(error);
+        // });
         axios.post(url, form_data, {
-          headers: {
-            'content-type': 'multipart/form-data'
-          }
+            headers: {
+                'content-type': 'multipart/form-data'
+            }
         })
             .then(res => {
-              console.log(res.data);
+                console.log(res.data);
             })
             .catch(err => console.log(err))
     };
@@ -55,7 +64,7 @@ export default class CameraPage extends React.Component {
         //change scene once photo is taken
         this.props.history.push({
             pathname: '/style.page',
-            state: {captures: this.state.captures}
+            state: { captures: this.state.captures }
         });
     };
 
@@ -68,18 +77,24 @@ export default class CameraPage extends React.Component {
         const camera = await Permissions.askAsync(Permissions.CAMERA);
         const audio = await Permissions.askAsync(Permissions.AUDIO_RECORDING);
         var perm = false
-        if(camera.status === "granted" && audio.status === "granted"){
+        if (camera.status === "granted" && audio.status === "granted") {
             perm = true
         }
         const hasCameraPermission = perm
         // const hasCameraPermission = (camera.status === "granted" && audio.status === "granted");
 
-        this.setState({hasCameraPermission: hasCameraPermission});
+        this.setState({ hasCameraPermission: hasCameraPermission });
         //console.log(hasCameraPermission)
     };
 
+    advanceState() {
+        this.props.history.push({
+            pathname: '/camera.roll.page'
+        });
+    }
+
     render() {
-        const { hasCameraPermission, flashMode, cameraType, capturing, captures } = this.state;        if (this.state.hasCameraPermission === null) {
+        const { hasCameraPermission, flashMode, cameraType, capturing, captures } = this.state; if (this.state.hasCameraPermission === null) {
             return <View />;
         } else if (this.state.hasCameraPermission === false) {
             return <Text>Access to camera has been denied.</Text>;
@@ -87,6 +102,13 @@ export default class CameraPage extends React.Component {
 
         return (
             <React.Fragment>
+                <TouchableOpacity style={styles.backButton} onPress={() => this.advanceState()}>
+                    <Ionicons
+                        name="md-images"
+                        color="white"
+                        size={40}
+                    />
+                </TouchableOpacity>
                 <View>
                     <Camera
                         type={cameraType}
@@ -95,8 +117,8 @@ export default class CameraPage extends React.Component {
                         ref={camera => this.camera = camera}
                     />
                 </View>
-                {captures.length > 0 && <Gallery captures={captures}/>}
-                <Toolbar 
+                {captures.length > 0 && <Gallery captures={captures} />}
+                <Toolbar
                     capturing={capturing}
                     flashMode={flashMode}
                     cameraType={cameraType}

@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, FlatList, Text, StyleSheet, Header, TouchableOpacity } from 'react-native'
+import { View, FlatList, Text, StyleSheet, Header, TouchableOpacity, Image } from 'react-native'
 import { STYLES } from './style-list'
 import { Style } from './style'
 import StyleSlideItem from './style-slide-item'
@@ -7,19 +7,16 @@ import StyleSlideItem from './style-slide-item'
 import styles from './styles';
 
 export default class StyleSlideBar extends React.Component {
-    state = {
-        stylesList: STYLES,
-        selectedStyle: 2,
-    }
 
     constructor(props) {
         super(props);
-    
-        this.setSelected = this.setSelected.bind(this);
-      }
+        this.state = {
+            stylesList: STYLES,
+            selectedStyle: -1
+        }
+    }
 
-    setSelected() {
-        alert(Yuh);
+    onSelect(index) {
         this.setState({
             selectedStyle: index
         })
@@ -28,18 +25,17 @@ export default class StyleSlideBar extends React.Component {
     render() {
         return(
             <View>
-                <Text style={styles.slideBarHeader}>{this.props.boxNumber}</Text>
+                <Text style={styles.slideBarHeader}>Styles</Text>
                 <FlatList
                     horizontal={true}
                     data={this.state.stylesList}
                     renderItem={({ item, index }) => {
                         return (
-                            <TouchableOpacity onPress={() => this.setSelected()}>
-                                <StyleSlideItem artist={item.artist} img={item.sampleImgUrl} index={index} currSelected={this.state.selectedStyle}></StyleSlideItem>
-                            </TouchableOpacity>                        
+                            <StyleSlideItem artist={item.artist} img={item.sampleImgUrl} index={index} currSelected={this.state.selectedStyle} setSelected={() => this.onSelect(index)}></StyleSlideItem>
                         )
                     }}
-                    keyExtractor={(item) => item.artist}>
+                    keyExtractor={(item) => item.artist}
+                    extraData={this.state}>
                 </FlatList>
             </View>
         );

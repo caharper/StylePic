@@ -87,7 +87,7 @@ export default StyleSheet.create({
     backButton: {
         margin: 15,
         width: 45,
-        paddingTop: 5,
+        paddingTop: 15,
         paddingHorizontal: 10,
         position: "absolute",
         zIndex: 2,
