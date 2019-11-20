@@ -52,6 +52,17 @@ def upload_file():
         # return ret
         # convert numpy array to image
         # img = cv2.imdecode(npimg, cv2.CV_LOAD_IMAGE_UNCHANGED)
+
+        # num_rows = request.files['rows']
+        # num_rows = request.get_json('rows')
+        # num_cols = request.get_json('cols')
+        # return num_rows + '    ' + num_cols
+        data = request.get_json('height')
+        return data
+        '''
+        # uploaded_files = request.files.getlist("file[]")
+        # height = uploaded_files.pop()
+        
         global counter
         image_num = str(counter)
 
@@ -72,6 +83,7 @@ def upload_file():
         output_img.save('./../returnImage' + image_num + '.jpg')
         counter = counter + 1
         return './../returnImage' + image_num + '.jpg'
+        '''
     else:
         return "This is a GET bro"
 
