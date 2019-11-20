@@ -1,5 +1,7 @@
 from style_transfer import get_styled_image
 from flask import Flask
+from flask import send_file
+from flask import request
 #from flask_cors import CORS, cross_origin
 routes = Flask(__name__)
 
@@ -11,10 +13,14 @@ import style_transfer
 
 PATH_TO_TEST_IMAGES_DIR = './images'
 
+import numpy
+#import cv2
+#from cv2 import cv
+
 # Example calling
-styles = ['./../../groups.PNG', './../../navisworksInstallDirections.PNG']
-output_img = get_styled_image('./../../groups.PNG', styles, num_rows=2, num_cols=1)
-output_img.save('./../out_img.jpg')
+# styles = ['./../../groups.PNG', './../../navisworksInstallDirections.PNG']
+# output_img = get_styled_image('./../../groups.PNG', styles, num_rows=2, num_cols=1)
+# output_img.save('./../out_img.jpg')
 
 '''
 https://stackoverflow.com/questions/43309343/working-with-user-uploaded-image-in-flask
@@ -26,35 +32,43 @@ https://www.twilio.com/docs/usage/tutorials/how-to-set-up-your-python-and-flask-
 
 Another link for reference: https://github.com/matt-sm/create-react-flask
 '''
+counter = 0
+styles = ['./../ArtistPics/dali.jpg', './../ArtistPics/monet.jpg', './../ArtistPics/picasso.jpg', './../ArtistPics/pollock.jpg', './../ArtistPics/van_gogh.jpg']
 
 
 @routes.route("/")
 def index():
     return "Hello World!"
 
+
 @routes.route('/upload', methods = ['GET','POST'])
 def upload_file():
     if request.method == 'POST':
+        # read image file string data
+        # filestr = request.files['file'].read()
+        # convert string data to numpy array
+        # npimg = numpy.fromstring(filestr, numpy.uint8)
+        # ret = str(type(npimg))
+        # return ret
+        # convert numpy array to image
+        # img = cv2.imdecode(npimg, cv2.CV_LOAD_IMAGE_UNCHANGED)
+        global counter
+        image_num = str(counter)
+
         file = request.files['file']
-        print(file)
-        file.save('./../fromGUI_img.jpg')
-        return "done"
+        filename = './../IncomingImage' + image_num
+        file.save(filename + '.jpg')
+
+        global styles
+        selected_styles = [styles[0], styles[1]] #Add None if no style
+
+        output_img = get_styled_image(filename + '.jpg', selected_styles, num_rows=2, num_cols=1)
+        output_img.save('./../returnImage' + image_num + '.jpg')
+        counter = counter + 1
+        return './../returnImage' + image_num + '.jpg'
     else:
         return "This is a GET bro"
 
-#
-# @routes.route("/uploader", methods=["GET","POST"])
-# def get_image():
-#     f = request.files['file']
-#     styles = request.files['styles']
-#     num_rows = request.files['rows']
-#     num_cols = request.files['cols']
-#     # sfname = 'images/'+str(secure_filename(f.filename))
-#     # f.save(sfname)
-#
-#     x = style_transfer.get_styled_image(f, styles, num_rows, num_cols)
-#     return x
-#     # return render_template('result.html', x, imgpath = sfname)
-#
+
 if __name__ == "__main__":
-    routes.run()
+    routes.run(host='0.0.0.0')
