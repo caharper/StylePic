@@ -1,9 +1,6 @@
 from style_transfer import get_styled_image
 from flask import Flask
-<<<<<<< HEAD
 from flask import send_file
-=======
->>>>>>> 2fafaa5ec74207f858f4fc87d268a0293472a6a8
 from flask import request
 #from flask_cors import CORS, cross_origin
 routes = Flask(__name__)
@@ -58,28 +55,26 @@ def upload_file():
         global counter
         image_num = str(counter)
 
-        file = request.files['file']
+        file = request.files['uri']
         filename = './../IncomingImage' + image_num
         file.save(filename + '.jpg')
 
+        height = request.files['height']
+        width = request.files['width']
+
+        ret_height = str(height)
+        ret_width = str(width)
+
         global styles
-<<<<<<< HEAD
         selected_styles = [styles[0], styles[1]] #Add None if no style
-=======
-        selected_styles = [styles[0], styles[1]]
->>>>>>> 2fafaa5ec74207f858f4fc87d268a0293472a6a8
 
         output_img = get_styled_image(filename + '.jpg', selected_styles, num_rows=2, num_cols=1)
         output_img.save('./../returnImage' + image_num + '.jpg')
         counter = counter + 1
-        return './../returnImage' + image_num + '.jpg'
+        return './../returnImage' + image_num + '.jpg' + '   height: ' + ret_height + '  width: ' + ret_width
     else:
         return "This is a GET bro"
 
 
 if __name__ == "__main__":
-<<<<<<< HEAD
     routes.run(host='0.0.0.0')
-=======
-    routes.run(host='0.0.0.0')
->>>>>>> 2fafaa5ec74207f858f4fc87d268a0293472a6a8
