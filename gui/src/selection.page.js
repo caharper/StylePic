@@ -57,10 +57,19 @@ export default class SelectionPage extends React.Component {
         }
     }
 
+    MyStatusBar() {
+        return(
+            <View style={{height: 20, backgroundColor: "#133761" }}>
+                <StatusBar translucent backgroundColor="#133761" barStyle="light-content" />
+            </View>
+        )
+    }
+
     render () {
         return (
             this.props.location.state.captures.map(({ uri }) => (
-                <View style={{ flex: 1, backgroundColor: 'white'}} key={uri}>
+                <View style={{ flex: 1, backgroundColor: '#A3A3A3'}} key={uri}>
+                        {this.MyStatusBar()}
                     <View style={styles.gridContainer}>
                         <View style={{position: 'absolute'}}>
                             <ImageBackground source={{ uri }} style={styles.selectingStylesImage}>
@@ -76,7 +85,7 @@ export default class SelectionPage extends React.Component {
                                             onPress={() => this.increaseRows()}>
                                     <Ionicons
                                         name="md-arrow-round-up"
-                                        color="black"
+                                        color="white"
                                         size={40}
                                     />
                                 </TouchableOpacity>
@@ -85,7 +94,7 @@ export default class SelectionPage extends React.Component {
                                                 onPress={() => this.decreaseRows()}>
                                     <Ionicons
                                         name="md-arrow-round-down"
-                                        color="black"
+                                        color="white"
                                         size={40}
                                     />
                                 </TouchableOpacity>
@@ -95,7 +104,7 @@ export default class SelectionPage extends React.Component {
                                             onPress={() => this.increaseCols()}>
                                     <Ionicons
                                         name="md-arrow-round-up"
-                                        color="black"
+                                        color="white"
                                         size={40}
                                     />
                                 </TouchableOpacity>
@@ -104,7 +113,7 @@ export default class SelectionPage extends React.Component {
                                                 onPress={() => this.decreaseCols()}>
                                     <Ionicons
                                         name="md-arrow-round-down"
-                                        color="black"
+                                        color="white"
                                         size={40}
                                     />
                                 </TouchableOpacity>

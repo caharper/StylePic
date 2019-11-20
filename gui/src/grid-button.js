@@ -38,16 +38,16 @@ export default class GridButton extends React.Component {
                     borderWidth: 3,
                     borderStyle: 'solid',
                     borderColor: '#41FF00',
-                    width: (Dimensions.get('window').width)/1.5/this.state.rows,
-                    height: (Dimensions.get('window').height)/1.5/this.state.cols,
+                    width: (Dimensions.get('window').width)/1.6/this.state.rows,
+                    height: (Dimensions.get('window').height)/1.6/this.state.cols,
                     zIndex: 1
                 }:{
                     zIndex: 1,
                     borderWidth: 1,
                     borderStyle: 'solid',
-                    borderColor: 'white',
-                    width: (Dimensions.get('window').width)/1.5/this.state.rows,
-                    height: (Dimensions.get('window').height)/1.5/this.state.cols,
+                    borderColor: '#DCDCDC',
+                    width: (Dimensions.get('window').width)/1.6/this.state.rows,
+                    height: (Dimensions.get('window').height)/1.6/this.state.cols,
                     zIndex: 1
                 }
             } onPress={() => this.highlightButton()}/>
