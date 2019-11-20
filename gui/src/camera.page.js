@@ -32,8 +32,8 @@ export default class CameraPage extends React.Component {
             this.camera.stopRecording();
     };
 
-    submit() {
-        console.log(this.state.captures[0]);
+    submit(){
+        //console.log(this.state.captures[0]);
         let form_data = new FormData();
         form_data.append('image', this.state.captures[0]);
         let url = 'http://35.226.239.3:5000/upload';
