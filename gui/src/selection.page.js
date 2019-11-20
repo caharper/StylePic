@@ -26,14 +26,14 @@ export default class SelectionPage extends React.Component {
         const pieces = [];
         for(let i = 0; i < (this.state.rows * this.state.cols); i++){
             pieces.push(<TouchableOpacity key={i} 
-                //style={this.state.highlight ? {borderColor: 'green'} : {} }
                 style={{
                     zIndex: 1,
                     borderWidth: 1,
                     borderStyle: 'solid',
+                    borderColor: 'white',
                     width: (Dimensions.get('window').width)/1.5/this.state.rows,
                     height: (Dimensions.get('window').height)/1.5/this.state.cols,
-                    zIndex: 1,
+                    zIndex: 1
                 }}
                 //onPress={() => this.highlightButton()}
                 />)
