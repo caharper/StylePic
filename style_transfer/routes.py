@@ -77,8 +77,4 @@ def upload_file():
 
 
 if __name__ == "__main__":
-<<<<<<< HEAD
     routes.run(host='0.0.0.0')
-=======
-    routes.run(host='0.0.0.0')
->>>>>>> 5ab2224ac2dd54e74fea6f7bf999be46b104eda8
