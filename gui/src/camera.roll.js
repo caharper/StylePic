@@ -1,163 +1,88 @@
-import React from 'react'
+import React, { Component } from "react";
+import * as ImagePicker from 'expo-image-picker';
+import * as Permissions from 'expo-permissions';
+import {View, Text, StyleSheet, Dimensions, Button, Image, TouchableOpacity } from "react-native";
+import { Ionicons } from '@expo/vector-icons';
 
-import {
-  View,
-  Text,
-  TouchableHighlight,
-  Modal,
-  StyleSheet,
-  Button,
-  CameraRoll,
-  Image,
-  Dimensions,
-  ScrollView,
-  Share,
-  RNFetchBlob
-} from 'react-native'
-
-let styles
-const { width } = Dimensions.get('window')
-
-export default class CameraRollPage extends React.Component {
-  static navigationOptions = {
-    title: 'Camera Roll App'
-  }
-
-  state = {
-    modalVisible: false,
-    photos: [],
-    index: null
-  }
-
-  setIndex = (index) => {
-    if (index === this.state.index) {
-      index = null
+export default class CameraRollScreen extends Component {
+ constructor(props) {
+    super(props);
+    this.state = {
+    hasCameraPermission: null,
+    image: null
     }
-    this.setState({ index })
+ }
+
+ async componentDidMount() {
+    const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
+    this.setState({ hasCameraPermission: status === "granted" });
+ }
+
+ _getPhotoLibrary = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+    allowsEditing: true,
+    aspect: [4, 3]
+    });
+    if (!result.cancelled) {
+      this.setState({ image: result.uri });
+    }
   }
 
-  getPhotos = () => {
-    CameraRoll.getPhotos({
-      first: 20,
-      assetType: 'All'
-    })
-    .then(r => this.setState({ photos: r.edges }))
-  }
-
-  toggleModal = () => {
-    this.setState({ modalVisible: !this.state.modalVisible });
-  }
-
-  navigate = () => {
-    const { navigate } = this.props.navigation
-    navigate('ImageBrowser')
-  }
-
-  share = () => {
-    const image = this.state.photos[this.state.index].node.image.uri
-    RNFetchBlob.fs.readFile(image, 'base64')
-    .then((data) => {
-      let shareOptions = {
-        title: "React Native Share Example",
-        message: "Check out this photo!",
-        url: `data:image/jpg;base64,${data}`,
-        subject: "Check out this photo!"
-      }
-
-      Share.open(shareOptions)
-        .then((res) => console.log('res:', res))
-        .catch(err => console.log('err', err))
-    })
-  }
-
-  revertState() {
+  advanceState() {
     this.props.history.push({
-        pathname: '/'
+      pathname: '/selection.page',
+      state: {captures: this.state.image}
     });
   }
 
-  render() {
-    console.log('state :', this.state)
-    return (
-      <View style={styles.container}>
-        <Button
-          title='View Photos'
-          onPress={() => { this.toggleModal(); this.getPhotos() }}
-        />
-        <Button
-          title='Back'
-          onPress={() => this.revertState()}
-        />
-        <Modal
-          animationType={"slide"}
-          transparent={false}
-          visible={this.state.modalVisible}
-          onRequestClose={() => console.log('closed')}
-        >
-          <View style={styles.modalContainer}>
-            <Button
-              title='Close'
-              onPress={this.toggleModal}
-            />
-            <ScrollView
-              contentContainerStyle={styles.scrollView}>
-              {
-                this.state.photos.map((p, i) => {
-                  return (
-                    <TouchableHighlight
-                      style={{opacity: i === this.state.index ? 0.5 : 1}}
-                      key={i}
-                      underlayColor='transparent'
-                      onPress={() => this.setIndex(i)}
-                    >
-                      <Image
-                        style={{
-                          width: width/3,
-                          height: width/3
-                        }}
-                        source={{uri: p.node.image.uri}}
-                      />
-                    </TouchableHighlight>
-                  )
-                })
-              }
-            </ScrollView>
-            {
-              this.state.index !== null  && (
-                <View style={styles.shareButton}>
-                  <Button
-                      title='Share'
-                      onPress={this.share}
-                    />
-                </View>
-              )
-            }
-          </View>
-        </Modal>
-      </View>
-    )
+ render() {
+  const { image, hasCameraPermission } = this.state;
+  if (hasCameraPermission === null) {
+   return <View />
   }
+  else if (hasCameraPermission === false) {
+   return <Text>Access to camera has been denied.</Text>;
+  }
+  else {
+   return (
+    <View style={{ flex: 1 }}>
+     <View style={styles.activeImageContainer}>
+      {image ? (
+       <Image source={{ uri: image }} style={{ flex: 1 }} />
+      ) : (
+        <Image source={{ uri: 'https://discountseries.com/wp-content/uploads/2017/09/default.jpg' }} style={{ flex: 1 }} />
+      )}
+    </View>
+    <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+      {image ? (
+        <TouchableOpacity onPress={() =>
+          this.advanceState()}>
+          <Ionicons
+              name="md-arrow-round-forward"
+              color="grey"
+              size={40}
+          />
+        </TouchableOpacity>
+      ) : (
+        <Button 
+          onPress={this._getPhotoLibrary.bind(this)} 
+          title="Select a Photo"
+        />
+      )}
+    </View>
+   </View>
+   );
+  }
+ }
 }
 
-styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-  modalContainer: {
-    paddingTop: 40,
-    flex: 1
-  },
-  scrollView: {
-    flexWrap: 'wrap',
-    flexDirection: 'row'
-  },
-  shareButton: {
-    position: 'absolute',
-    width,
-    padding: 10,
-    bottom: 0,
-    left: 0
-  }
-})
+const styles = StyleSheet.create({
+ activeImageContainer: {
+  flex: 1,
+  width: Dimensions.get("window").width,
+  height: Dimensions.get("window").height / 2,
+  backgroundColor: "#eee",
+  borderBottomWidth: 0.5,
+  borderColor: "#fff"
+ },
+});

@@ -13,9 +13,6 @@ import { STYLES } from './src/style-list'
 export default class App extends React.Component {
     render() {
         return (
-            // <View>
-            //     <StyleSlideBar></StyleSlideBar>
-            // </View>
             <NativeRouter>
                 <Route exact path="/" component={CameraPage} />
                 <Route exact path="/style.page" component={StylePage} />
