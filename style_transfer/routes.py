@@ -5,6 +5,8 @@ from flask import request
 #from flask_cors import CORS, cross_origin
 routes = Flask(__name__)
 
+from werkzeug.datastructures import ImmutableMultiDict
+
 from flask import request, jsonify, Response, render_template
 # from PIL import Image
 
@@ -57,7 +59,10 @@ def upload_file():
         # num_rows = request.get_json('rows')
         # num_cols = request.get_json('cols')
         # return num_rows + '    ' + num_cols
-        data = request.get_json('height')
+        # data = request.get_json('height')
+        # return data
+
+        data = dict(request.form)
         return data
         '''
         # uploaded_files = request.files.getlist("file[]")
