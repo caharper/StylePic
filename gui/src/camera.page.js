@@ -64,6 +64,7 @@ export default class CameraPage extends React.Component {
         //change scene once photo is taken
         this.props.history.push({
             pathname: '/style.page',
+            state: { captures: this.state.captures },
         });
     };
 
