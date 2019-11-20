@@ -47,11 +47,11 @@ def index():
 def upload_file():
     if request.method == 'POST':
         # read image file string data
-        # filestr = request.files['file'].read()
+        filestr = request.files['uri'].read()
         # convert string data to numpy array
-        # npimg = numpy.fromstring(filestr, numpy.uint8)
-        # ret = str(type(npimg))
-        # return ret
+        npimg = numpy.fromstring(filestr, numpy.uint8)
+        ret = str(type(npimg))
+        return ret
         # convert numpy array to image
         # img = cv2.imdecode(npimg, cv2.CV_LOAD_IMAGE_UNCHANGED)
 
@@ -62,8 +62,10 @@ def upload_file():
         # data = request.get_json('height')
         # return data
 
-        data = dict(request.form)
-        return data
+        # data = dict(request.form)
+        # value = dict['uri']  # get the `value` of `key` in `dictionary`.
+        # dict[key] = newvalue  # change the content of `key` in `dictionary` to `newvalue`.
+
         '''
         # uploaded_files = request.files.getlist("file[]")
         # height = uploaded_files.pop()
