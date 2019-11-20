@@ -21,9 +21,13 @@ export default class SelectionPage extends React.Component {
                     zIndex: 1,
                     borderWidth: 1,
                     borderStyle: 'solid',
-                    width: (Dimensions.get('window').width)/this.state.rows,
-                    height: (Dimensions.get('window').height)/this.state.cols}}
-                />)
+                    width: (Dimensions.get('window').width)/1.7/this.state.rows,
+                    height: (Dimensions.get('window').height)/1.7/this.state.cols,
+                    //width: 100,
+                    //height: 100,
+                    //position: 'absolute',
+                    zIndex: 100
+                }}/>)
         }
         return pieces;
     }
@@ -31,29 +35,27 @@ export default class SelectionPage extends React.Component {
     render () {
         return (
             this.props.location.state.captures.map(({ uri }) => (
-                <View style={{ flex: 1 }} key={uri}>
+                <View style={{ flex: 1}} key={uri}>
                     <View>
                         <ColRowsInputs />
                     </View>
-                    <View style={styles.bottom}>
-                        <ImageBackground source={{ uri }} style={styles.selectingStylesImage}>
-                        {/*<View style={styles.grid}>
-                            <TouchableOpacity style={styles.piece}/>
-                            <TouchableOpacity style={styles.piece}/>
-                            <TouchableOpacity style={styles.piece}/>
-                            <TouchableOpacity style={styles.piece}/>
-                            <TouchableOpacity style={styles.piece}/>
-                            <TouchableOpacity style={styles.piece}/>
-                            <TouchableOpacity style={styles.piece}/>
-                            <TouchableOpacity style={styles.piece}/>
-                            <TouchableOpacity style={styles.piece}/>
+                    {/* <View style={{justifyContent: 'center', width: Dimensions.get('window').width}}> */}
+                    <View style={styles.gridContainer}>
+                        <View style={{position: 'absolute'}}>
+                            <ImageBackground source={{ uri }} style={styles.selectingStylesImage} id={'img'}>
+                            </ImageBackground>
+                        </View>
+                        <View style={styles.grid}>
                             {this.renderPieces()}
-                        </View>*/}
-                        </ImageBackground>
+                        </View>
+                    </View>
+                    {/* </View> */}
+                    
+                    <View style={styles.bottom}>
                         <View style={{borderTopWidth: 1}}>
                             <StyleSlideBar boxNumber={"Harry"}/>
                         </View>
-                </View>
+                    </View>    
                 </View>
             ))
         )

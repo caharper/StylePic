@@ -68,8 +68,11 @@ export default StyleSheet.create({
     selectingStylesImage: { 
         width: Dimensions.get('window').width / 1.7,
         height: Dimensions.get('window').height / 1.7,
-        alignSelf: 'center',
-        bottom: 20,
+        //width: 100,
+        //height: 100,
+        //position: 'absolute',
+        //alignSelf: 'center',
+        //bottom: 20,
         zIndex: -1
     },
     slideBarHeader: {
@@ -89,7 +92,20 @@ export default StyleSheet.create({
         position: "absolute",
         zIndex: 2,
       },
+    gridContainer: {
+        flexDirection: "row",
+        //flexWrap: "wrap",
+        bottom: 10,
+        maxHeight: 'auto',
+        maxWidth: 'auto',
+        //width: Dimensions.get('window').width / 1.7,
+        //height: Dimensions.get('window').height / 1.7,
+        justifyContent: 'center'
+    },
     grid: {
+        width: (Dimensions.get('window').width)/1.7,
+        height: (Dimensions.get('window').height)/1.7,
+        zIndex: 1,
         flexDirection: "row",
         flexWrap: "wrap",
     },

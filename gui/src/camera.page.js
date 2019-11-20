@@ -32,7 +32,7 @@ export default class CameraPage extends React.Component {
     };
 
     submit(){
-        console.log(this.state.captures[0]);
+        //console.log(this.state.captures[0]);
         let form_data = new FormData();
         form_data.append('image', this.state.captures[0]);
         let url = 'http://localhost:5000/upload';
