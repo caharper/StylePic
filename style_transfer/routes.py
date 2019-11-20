@@ -59,11 +59,11 @@ def upload_file():
         filename = './../IncomingImage' + image_num
         file.save(filename + '.jpg')
 
-        height = request.files['height']
-        width = request.files['width']
+        # height = request.files['height']
+        # width = request.files['width']
 
-        ret_height = str(height)
-        ret_width = str(width)
+        # ret_height = str(height)
+        # ret_width = str(width)
 
         global styles
         selected_styles = [styles[0], styles[1]] #Add None if no style
@@ -71,7 +71,7 @@ def upload_file():
         output_img = get_styled_image(filename + '.jpg', selected_styles, num_rows=2, num_cols=1)
         output_img.save('./../returnImage' + image_num + '.jpg')
         counter = counter + 1
-        return './../returnImage' + image_num + '.jpg' + '   height: ' + ret_height + '  width: ' + ret_width
+        return './../returnImage' + image_num + '.jpg'
     else:
         return "This is a GET bro"
 
