@@ -66,8 +66,8 @@ export default StyleSheet.create({
         zIndex: -1
     },
     selectingStylesImage: { 
-        width: Dimensions.get('window').width / 1.7,
-        height: Dimensions.get('window').height / 1.7,
+        width: Dimensions.get('window').width / 1.5,
+        height: Dimensions.get('window').height / 1.5,
         //width: 100,
         //height: 100,
         //position: 'absolute',
@@ -103,8 +103,8 @@ export default StyleSheet.create({
         justifyContent: 'center'
     },
     grid: {
-        width: (Dimensions.get('window').width)/1.7,
-        height: (Dimensions.get('window').height)/1.7,
+        width: (Dimensions.get('window').width)/1.5,
+        height: (Dimensions.get('window').height)/1.5,
         zIndex: 1,
         flexDirection: "row",
         flexWrap: "wrap",
@@ -125,5 +125,23 @@ export default StyleSheet.create({
         height: 40,
         borderColor: 'gray',
         borderWidth: 1
+    },
+    rowsColsButtonsContainer: {
+        flexDirection: 'row',
+    },
+    rowsButtonsContainer: {
+        flexDirection: 'row',
+    },
+    colsButtonsContainer: {
+        flexDirection: 'row',
+        marginLeft: 'auto'
+    },
+    rowsButton: {
+        margin: 1,
+        width: 45,
+        paddingTop: 5,
+        paddingLeft: 10,
+        backgroundColor: 'lightgreen',
+        borderRadius: 25
     }
 });
