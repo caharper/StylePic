@@ -87,11 +87,11 @@ def upload_file():
         global counter
         image_num = str(counter)
 
-        file = request.files['image']
+        file = request.files['file']
         # filename = './../IncomingImage' + image_num
         # file.save(filename + '.jpg')
 
-        imgdata = base64.b64decode(file)
+        imgdata = base64.b64decode(str(file))
         filename = './../IncomingImage' + image_num
         with open(filename, 'wb') as f:
             f.write(imgdata)
