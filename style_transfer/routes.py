@@ -89,7 +89,9 @@ def upload_file():
 
         file = request.files['file']
         print(request.__dict__)
+        print("________________")
         print(request.files)
+        print("________________")
         print(file.content_length)
         # filename = './../IncomingImage' + image_num
         # file.save(filename + '.jpg')
