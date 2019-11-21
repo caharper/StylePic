@@ -65,6 +65,14 @@ counter = 0
 styles = ['./../ArtistPics/dali.jpg', './../ArtistPics/monet.jpg', './../ArtistPics/picasso.jpg',
           './../ArtistPics/pollock.jpg', './../ArtistPics/van_gogh.jpg']
 
+styles = {'0': './../ArtistPics/dali.jpg',
+          '1': './../ArtistPics/monet.jpg',
+          '2': './../ArtistPics/picasso.jpg',
+          '3': './../ArtistPics/pollock.jpg',
+          '4': './../ArtistPics/van_gogh.jpg',
+          '9': None
+          }
+
 
 @routes.route("/")
 def index():
@@ -109,11 +117,15 @@ def upload_file():
         print('rows: ' + rows + '   cols: ' + cols + '  array element 1: ' + ret_arr[0])
         return 'rows: ' + rows + '   cols: ' + cols + '  array element 1: ' + ret_arr[0]
         '''
-
+        global styles
         rows = request.form['rows']
         cols = request.form['cols']
         arr = request.form['arr']
-        arr = list(map(int, arr))
+        print(arr[0])
+        selected_styles = []
+        for x in arr:
+            selected_styles.append(styles[x])
+        # arr = list(map(int, arr))
         # print(type(arr))
         # arr = arr[1:]
         # ret_arr = []
@@ -143,7 +155,7 @@ def upload_file():
             f.write(imgdata)
         # f gets closed when you exit the with statement
         # Now save the value of filename to your database
-
+        '''
         global styles
         # selected_styles = [styles[0], styles[1]]  # Add None if no style
         selected_styles = []
@@ -152,6 +164,7 @@ def upload_file():
         for x in arr:
             print('x: ', x)
             selected_styles.append(styles[int(x)])
+        '''
 
         # output_img = get_styled_image(filename + '.jpg', selected_styles, num_rows=2, num_cols=1)
         # output_img = get_styled_image(filename, selected_styles, num_rows=2, num_cols=1)
