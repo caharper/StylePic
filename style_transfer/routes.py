@@ -80,7 +80,10 @@ def upload_file():
 
         # filestr = request.files['uri'].read()
         # ret = str(type(filestr))
-
+        data = dict(request.form)
+        print(data)
+        return "taco"
+        
         global counter
         image_num = str(counter)
 
