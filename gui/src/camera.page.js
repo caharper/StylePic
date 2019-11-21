@@ -52,7 +52,7 @@ export default class CameraPage extends React.Component {
         // }).then((response) => {
         //     console.log(response);
         // });
-
+        
         body.append('image', photo.file);
         console.log(body);
         axios.post(url, body, {
