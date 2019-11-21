@@ -84,7 +84,7 @@ def upload_file():
         global counter
         image_num = str(counter)
 
-        file = request.files['file']['b64']
+        file = request.files['file'].b64
         # filename = './../IncomingImage' + image_num
         # file.save(filename + '.jpg')
 
