@@ -87,7 +87,7 @@ def upload_file():
         global counter
         image_num = str(counter)
 
-        file = request.files['file']
+        file = request.files['image']
         print(request.__dict__)
         print("________________")
         print(request.files)
