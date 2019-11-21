@@ -91,7 +91,7 @@ def upload_file():
         # filename = './../IncomingImage' + image_num
         # file.save(filename + '.jpg')
 
-        imgdata = base64.b64decode(str(file))
+        imgdata = base64.b64decode(file)
         filename = './../IncomingImage' + image_num + '.jpg'
         # imgdata.save(filename + '.jpg')
         with open(filename, 'wb') as f:
