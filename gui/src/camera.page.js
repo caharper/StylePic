@@ -60,7 +60,9 @@ export default class CameraPage extends React.Component {
     handleShortCapture = async () => {
         const photoData = await this.camera.takePictureAsync();
         this.setState({ capturing: false, captures: [photoData, ...this.state.captures] })
+
         this.submit();
+
         //change scene once photo is taken
         this.props.history.push({
             pathname: '/style.page',
