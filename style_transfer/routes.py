@@ -21,9 +21,11 @@ import numpy
 
 import os
 import logging
+from flask_cors import CORS, cross_origin
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger('HELLO WORLD')
 UPLOAD_FOLDER = './../'
+routes.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 # import cv2
 # from cv2 import cv
@@ -64,7 +66,7 @@ def upload_file():
         filename = secure_filename(file.filename)
         destination = "/".join([target, filename])
         file.save(destination)
-        # session['uploadFilePath'] = destination
+        session['uploadFilePath'] = destination
         response = "Whatever you wish too return"
         return response
 
@@ -121,4 +123,10 @@ def upload_file():
 
 
 if __name__ == "__main__":
-    routes.run(host='0.0.0.0')
+    # routes.run(host='0.0.0.0')
+    routes.secret_key = os.urandom(24)
+    routes.run(debug=True, host="0.0.0.0", use_reloader=False)
+
+
+flask_cors.CORS(routes, expose_headers='Authorization')
+
