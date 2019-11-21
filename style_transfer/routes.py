@@ -89,11 +89,8 @@ def upload_file():
 
         file = request.form['image']
 
-
+        file = file[:-9]
         print(file)
-        print("REQ.FORM")
-        print("____________")
-
 
 
 
