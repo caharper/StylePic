@@ -35,15 +35,6 @@ export default class CameraPage extends React.Component {
     };
 
     submit() {
-        // RNFetchBlob.config({fileCache: true})
-        // .fetch("POST", url);
-        // .then(res => {
-        //     console.log(res.data);
-        // })
-        // .catch(err => console.log(err))
-        //var RNFS = require('react-native-fs')
-        //var base64data = RNFS.readFile(this.state.captures[0], 'base64');
-        //console.log(base64data);
         var body = new FormData();
         let url = 'http://35.226.239.3:5000/upload';
         var photo = {
@@ -53,22 +44,27 @@ export default class CameraPage extends React.Component {
         }
         this.state.captures.map(({ base64 }) =>(
         photo.file = base64))
-        body.append('image',photo );
-        console.log(body);
-        fetch(url, {
-            method: 'POST',
-            body
-        }).then((response) => {
-            console.log(response.text());
-        });
-        // var RNFetchBlob = require('react-native-fetch-blob')
-        // RNFetchBlob.fetch('POST', url, {
-        //     'image': JSON.stringify(photo),
-        // }, base64ImageString).then((res) => {
-        //     console.log(res.text())
-        // }).catch((err) =>{
-        //     console.log(err)
-        // })
+        // body.append('image',photo );
+        // console.log(body);
+        // fetch(url, {
+        //     method: 'POST',
+        //     body
+        // }).then((response) => {
+        //     console.log(response);
+        // });
+
+        body.append('image', photo.file);
+        axios.post(url, body, {
+            headers: {
+                'content-type': 'multipart/form-data'
+            }
+        }).then(res => {
+              console.log(res.data);
+          })
+          .catch(err => console.log(err))
+        
+        
+
     
       
         // var xhr = new XMLHttpRequest();
