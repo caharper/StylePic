@@ -73,7 +73,7 @@ def calc_resize_shape(x_shape, y_shape, num_rows, num_cols):
         # now make sure that the values for x are even when divided
         y_divided = int(y_shape/num_cols)
         # if odd
-        if((x_divided)%2):
+        if((y_divided)%2):
             y_shape = (y_divided + 1) * num_cols
 
     return (x_shape, y_shape)
