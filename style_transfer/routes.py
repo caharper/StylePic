@@ -92,10 +92,10 @@ def upload_file():
         # file.save(filename + '.jpg')
 
         imgdata = base64.b64decode(str(file))
-        filename = './../IncomingImage' + image_num
-        imgdata.save(filename + '.jpg')
-        # with open(filename, 'wb') as f:
-        #    f.write(imgdata)
+        filename = './../IncomingImage' + image_num + '.jpg'
+        # imgdata.save(filename + '.jpg')
+        with open(filename, 'wb') as f:
+            f.write(imgdata)
         # f gets closed when you exit the with statement
         # Now save the value of filename to your database
 
