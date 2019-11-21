@@ -118,6 +118,22 @@ export default StyleSheet.create({
         right: 10,
         zIndex: 2
     },
+    selectionAdvanceButton: {
+        width: 45, 
+        height: 50,
+        position: 'absolute',
+        top: 30,
+        right: 5,
+        zIndex: 4
+    },
+    selectionGoBackButton: {
+        width: 45, 
+        height: 50,
+        position: 'absolute',
+        top: 30,
+        left: 15,
+        zIndex: 4
+    },
     bottom: {
         position: 'absolute',
         bottom: 10

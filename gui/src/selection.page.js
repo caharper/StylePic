@@ -16,16 +16,6 @@ export default class SelectionPage extends React.Component {
     renderPieces() {
         const pieces = [];
         for(let i = 0; i < (this.state.rows * this.state.cols); i++){
-            // pieces.push(<TouchableOpacity key={i} 
-            //     style={{
-            //         zIndex: 1,
-            //         borderWidth: 1,
-            //         borderStyle: 'solid',
-            //         borderColor: 'white',
-            //         width: (Dimensions.get('window').width)/1.5/this.state.rows,
-            //         height: (Dimensions.get('window').height)/1.5/this.state.cols,
-            //         zIndex: 1
-            //     }}/>)
             pieces.push(<GridButton key={i} rows={this.state.rows} cols={this.state.cols}/>)
         }
         return pieces;
@@ -70,6 +60,19 @@ export default class SelectionPage extends React.Component {
                 <StatusBar translucent backgroundColor="#133761" barStyle="light-content" />
             </View>
         )
+    }
+
+    advanceState() {
+        this.props.history.push({
+            pathname: '/final.page',
+            state: {captures: this.props.location.state.captures}
+        });
+    }
+
+    moveBackState() {
+        this.props.history.push({
+            pathname: '/'
+        });
     }
 
     render () {
@@ -136,7 +139,23 @@ export default class SelectionPage extends React.Component {
                         <View style={{borderTopWidth: 1}}>
                             <StyleSlideBar boxNumber={"Style"}/>
                         </View>
-                    </View>  
+                    </View>
+                    <TouchableOpacity style={styles.selectionAdvanceButton} onPress={() =>
+                        this.advanceState()}>
+                        <Ionicons
+                            name="md-arrow-round-forward"
+                            color="grey"
+                            size={40}
+                        />
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.selectionGoBackButton} onPress={() =>
+                        this.moveBackState()}>
+                        <Ionicons
+                            name="md-arrow-round-back"
+                            color="grey"
+                            size={40}
+                        />
+                    </TouchableOpacity>
                 </View>
             ))
         )
