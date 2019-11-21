@@ -119,7 +119,7 @@ def upload_file():
         # for x in arr[::2]:
         #    ret_arr.append(x)
         print('rows: ' + rows + '   cols: ' + cols + ' arr:  ' + arr)
-        return 'rows: ' + rows + '   cols: ' + cols + ' arr:  ' + dict(request.form)
+        return 'rows: ' + rows + '   cols: ' + cols + ' arr:  ' + str(dict(request.form))
 
         global counter
         image_num = str(counter)
