@@ -87,11 +87,18 @@ def upload_file():
         global counter
         image_num = str(counter)
 
-        print(request.__dict__)
-        print("________________")
-        print(request.files)
-        print("________________")
-        file = request.form
+        file = request.data
+        print(request.data)
+        print("____________")
+        print(request.form)
+        print("____________")
+
+        print(request.args)
+        print("____________")
+
+        print(request.data)
+
+
         # filename = './../IncomingImage' + image_num
         # file.save(filename + '.jpg')
 
