@@ -94,7 +94,7 @@ def upload_file():
         output_img.save('./../returnImage' + image_num + '.jpg')
         counter = counter + 1
 
-        return send_file(filename, mimetype='image/jpg')
+        return send_file('../returnImage' + image_num + '.jpg', mimetype='image/jpg')
         # return "output_img"
 
         # return "done"
