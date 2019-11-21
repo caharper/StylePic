@@ -1,8 +1,6 @@
 import React from 'react'
 import StyleSlideBar from './style-slide-bar'
 import { Text, View, Image, ImageBackground, TouchableOpacity, Dimensions, TextInput, StatusBar } from 'react-native'
-import { OutlinedTextField } from 'react-native-material-textfield';
-import ColRowsInputs from './col-row-inputs'
 import { Ionicons } from '@expo/vector-icons';
 import GridButton from './grid-button.js'
 
