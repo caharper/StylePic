@@ -125,7 +125,7 @@ def upload_file():
 if __name__ == "__main__":
     # routes.run(host='0.0.0.0')
     routes.secret_key = os.urandom(24)
-    routes.run(debug=True, host="0.0.0.0", use_reloader=False)
+    routes.run(host="0.0.0.0", use_reloader=False)
 
 
 flask_cors.CORS(routes, expose_headers='Authorization')
