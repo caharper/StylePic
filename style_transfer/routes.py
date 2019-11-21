@@ -98,9 +98,21 @@ def upload_file():
         # data = dict(request.form)
         # print(data)
         # return data
+        '''
         rows = request.values.get('rows')
         cols = request.values.get('cols')
         arr = request.values.get('arr')
+        arr = arr[1:]
+        ret_arr = []
+        for x in arr[::2]:
+            ret_arr.append(x)
+        print('rows: ' + rows + '   cols: ' + cols + '  array element 1: ' + ret_arr[0])
+        return 'rows: ' + rows + '   cols: ' + cols + '  array element 1: ' + ret_arr[0]
+        '''
+
+        rows = request.form['rows']
+        cols = request.form['cols']
+        arr = request.form['arr']
         arr = arr[1:]
         ret_arr = []
         for x in arr[::2]:
