@@ -112,14 +112,14 @@ def upload_file():
 
         rows = request.form['rows']
         cols = request.form['cols']
-        arr = request.form['arr[]']
+        arr = request.form.getList('arr[]')
 
         # arr = arr[1:]
         # ret_arr = []
         # for x in arr[::2]:
         #    ret_arr.append(x)
-        print('rows: ' + rows + '   cols: ' + cols + ' arr:  ' + arr)
-        return 'rows: ' + rows + '   cols: ' + cols  + ' arr:  ' + arr
+        print('rows: ' + rows + '   cols: ' + cols + ' arr:  ' + str(arr))
+        return 'rows: ' + rows + '   cols: ' + cols  + ' arr:  ' + str(arr)
 
         global counter
         image_num = str(counter)
