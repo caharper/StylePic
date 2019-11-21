@@ -16,8 +16,23 @@ export default class SelectionPage extends React.Component {
             cols: 3,
             styleList: STYLES,
             selectedStyle: 0,
-            currGridButton: -1,
+            selectedStyles: this.initializeSelecteds(),
+            currGridButton: 0,
         }
+    }
+    printArr() {
+        for(i = 0; i < 25; i++) {
+            console.log(this.state.selectedStyles[i]);
+        }
+        console.log();
+    }
+
+    initializeSelecteds() {
+        arr = [];
+        for(i = 0; i < 25; i++) {
+            arr.push(9);
+        }
+        return arr;
     }
 
     renderPieces() {
@@ -30,6 +45,7 @@ export default class SelectionPage extends React.Component {
                                     filter={this.state.styleList[this.state.selectedStyle]}
                                     onSelect={() => this.onSelectedButton(i)}
                                     currGridButton={this.state.currGridButton}
+                                    selectedStyles={this.state.selectedStyles}
                                     />)
         }
         return pieces;
@@ -42,9 +58,13 @@ export default class SelectionPage extends React.Component {
     }
 
     onSelectedStyle(index) {
+        arr = this.state.selectedStyles;
+        arr[this.state.currGridButton] = index;
         this.setState({
-            selectedStyle: index
+            selectedStyle: index,
+            selectedStyles: arr
         })
+        this.printArr();
     }
 
     increaseRows() {
@@ -89,9 +109,17 @@ export default class SelectionPage extends React.Component {
     }
 
     advanceState() {
+        s = "";
+        for(i = 0; i < 25; i++) {
+            s += this.state.selectedStyles[i].toString();
+        }
         this.props.history.push({
             pathname: '/final.page',
-            state: {captures: this.props.location.state.captures}
+            state: {captures: s,
+                    rows: this.state.rows,
+                    cols: this.state.cols,
+                }
+            
         });
     }
 
@@ -164,7 +192,7 @@ export default class SelectionPage extends React.Component {
                     </View>
                     <View style={styles.bottom}>
                         <View style={{borderTopWidth: 1}}>
-                            <StyleSlideBar boxNumber={this.state.currGridButton + 1} onSelect={this.onSelectedStyle.bind(this)}/>
+                            <StyleSlideBar currSelected={this.state.currGridButton} currGridButton={this.state.selectedStyles[this.state.currGridButton]} boxNumber={this.state.currGridButton + 1} onSelect={this.onSelectedStyle.bind(this)} selectedStyles={this.state.selectedStyles} />
                         </View>
                     </View>
                     <TouchableOpacity style={styles.selectionAdvanceButton} onPress={() =>

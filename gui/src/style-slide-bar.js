@@ -12,7 +12,7 @@ export default class StyleSlideBar extends React.Component {
         super(props);
         this.state = {
             stylesList: STYLES,
-            selectedStyle: -1
+            //selectedStyle: -1
         }
     }
 
@@ -41,7 +41,7 @@ export default class StyleSlideBar extends React.Component {
                     data={this.state.stylesList}
                     renderItem={({ item, index }) => {
                         return (
-                            <StyleSlideItem artist={item.artist} img={item.sampleImgUrl} index={index} currSelected={this.state.selectedStyle} setSelected={() => this.onSelect(index)}></StyleSlideItem>
+                            <StyleSlideItem artist={item.artist} img={item.sampleImgUrl} index={index} setSelected={() => this.onSelect(index)} selectedStyles={this.props.selectedStyles} currGridButton={this.props.currGridButton}></StyleSlideItem>
                         )
                     }}
                     keyExtractor={(item) => item.artist}

@@ -12,7 +12,7 @@ export default class StyleSlideItem extends React.Component {
     }
 
     isSelected() {
-        if(this.props.currSelected == this.state.index) {
+        if(this.props.selectedStyles[this.props.currGridButton] == this.state.index) {
             return "lightblue";
         }
         else {
