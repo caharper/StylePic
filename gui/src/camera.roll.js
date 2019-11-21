@@ -1,3 +1,5 @@
+// Code adapted from https://medium.com/@df.eporwei/a-photo-picker-with-expo-for-react-native-9b7897b69f7f
+
 import React, { Component } from "react";
 import * as ImagePicker from 'expo-image-picker';
 import * as Permissions from 'expo-permissions';
@@ -29,9 +31,10 @@ export default class CameraRollScreen extends Component {
   }
 
   advanceState() {
+    imageArr = [this.state.image];
     this.props.history.push({
       pathname: '/selection.page',
-      state: {captures: this.state.image}
+      state: {captures: imageArr, index: this.state.image.charCodeAt(0)}
     });
   }
 

@@ -1,8 +1,6 @@
 import React from 'react'
 import StyleSlideBar from './style-slide-bar'
 import { Text, View, Image, ImageBackground, TouchableOpacity, Dimensions, TextInput } from 'react-native'
-import { OutlinedTextField } from 'react-native-material-textfield';
-import ColRowsInputs from './col-row-inputs'
 import { Ionicons } from '@expo/vector-icons';
 
 import styles from './styles';
@@ -65,24 +63,35 @@ export default class SelectionPage extends React.Component {
         }
     }
 
+    isString(s) {
+        if(typeof s === "string") {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
     render () {
         return (
             this.props.location.state.captures.map(({ uri }) => (
-                <View style={{ flex: 1}} key={uri}>
-                    <View>
-                        {/* <ColRowsInputs /> */}
-                    </View>
-                    {/* <View style={{justifyContent: 'center', width: Dimensions.get('window').width}}> */}
+                <View style={{ flex: 1}} key={!this.isString(this.props.location.state.captures[0]) ? (
+                    uri
+                    ) : (
+                    this.props.location.state.index
+                    )}>
                     <View style={styles.gridContainer}>
                         <View style={{position: 'absolute'}}>
-                            <ImageBackground source={{ uri }} style={styles.selectingStylesImage} id={'img'}>
-                            </ImageBackground>
+                            {!this.isString(this.props.location.state.captures[0]) ? (
+                            <ImageBackground source={{ uri }} style={styles.selectingStylesImage} id={'img'}></ImageBackground>
+                            ) : (
+                            <ImageBackground source={{ uri: this.props.location.state.captures[0] }} style={styles.selectingStylesImage} id={'img'}></ImageBackground>
+                            )}
                         </View>
                         <View style={styles.grid}>
                             {this.renderPieces()}
                         </View>
                     </View>
-                    {/* </View> */}
                     <View style={styles.rowsColsButtonsContainer}>
                         <View style={styles.rowsButtonsContainer}>
                             <TouchableOpacity style={styles.rowsButton} 
@@ -125,7 +134,7 @@ export default class SelectionPage extends React.Component {
                     </View>
                     <View style={styles.bottom}>
                         <View style={{borderTopWidth: 1}}>
-                            <StyleSlideBar boxNumber={"Harry"}/>
+                            <StyleSlideBar boxNumber={"Style"}/>
                         </View>
                     </View>  
                 </View>
