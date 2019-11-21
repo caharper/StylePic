@@ -88,7 +88,6 @@ def upload_file():
         image_num = str(counter)
 
         file = request.files['file']
-        print(request['image'])
         print(request.__dict__)
         print(request)
         print(file)
