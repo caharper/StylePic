@@ -124,6 +124,8 @@ def upload_file():
         print(arr[0])
         selected_styles = []
         for x in arr:
+            if x == ',':
+                continue
             selected_styles.append(styles[x])
         # arr = list(map(int, arr))
         # print(type(arr))
