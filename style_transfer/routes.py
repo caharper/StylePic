@@ -414,20 +414,21 @@ def upload_file():
         # output_img = get_styled_image(filename + '.jpg', selected_styles, num_rows=2, num_cols=1)
         # output_img = get_styled_image(filename, selected_styles, num_rows=2, num_cols=1)
         output_img = get_styled_image(filename, selected_styles, num_rows=int(rows), num_cols=int(cols))
+        output_img.rotate(270)
         output_img.save('./../returnImage' + image_num + '.jpg')
         counter = counter + 1
 
         # ret_img = base64.b64encode('./../returnImage' + image_num + '.jpg')
-        buffered = BytesIO()
-        output_img.save(buffered, format="JPEG")
-        img_str = base64.b64encode(buffered.getValue())
-        return img_str
+        # buffered = BytesIO()
+        # output_img.save(buffered, format="JPEG")
+        # img_str = base64.b64encode(buffered.getValue())
+        # return img_str
 
         # return send_file('../returnImage' + image_num + '.jpg', mimetype='image/jpg')
         # return send_file('./../IncomingImage' + image_num + '.jpg', mimetype='image/jpg')
         # return "output_img"
 
-        # return "done"
+        return "done"
         # convert numpy array to image
 
         # img = cv2.imdecode(npimg, cv2.CV_LOAD_IMAGE_UNCHANGED)
