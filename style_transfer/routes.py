@@ -88,6 +88,7 @@ def upload_file():
         image_num = str(counter)
 
         file = request.files['file']
+        print(request)
         print(file)
         print(file.content_length)
         # filename = './../IncomingImage' + image_num
