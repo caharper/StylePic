@@ -91,7 +91,7 @@ def upload_file():
         print("________________")
         print(request.files)
         print("________________")
-        file = request.files['base64']
+        file = request.json
 
         print(file.content_length)
         # filename = './../IncomingImage' + image_num

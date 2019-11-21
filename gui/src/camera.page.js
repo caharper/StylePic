@@ -54,6 +54,7 @@ export default class CameraPage extends React.Component {
         // });
 
         body.append('image', photo.file);
+        console.log(body);
         axios.post(url, body, {
             headers: {
                 'content-type': 'multipart/form-data'
@@ -85,7 +86,6 @@ export default class CameraPage extends React.Component {
 
     handleShortCapture = async () => {
         const photoData = await this.camera.takePictureAsync({base64 : true});
-        console.log(photoData);
         this.setState({ capturing: false, captures: [photoData, ...this.state.captures] })
         this.submit();
         //change scene once photo is taken
