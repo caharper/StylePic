@@ -28,17 +28,23 @@ export default class SelectionPage extends React.Component {
                                     rows={this.state.rows} 
                                     cols={this.state.cols}
                                     filter={this.state.styleList[this.state.selectedStyle]}
-                                    onSelect={() => this.onSelectedStyle(i)}
+                                    onSelect={() => this.onSelectedButton(i)}
                                     currGridButton={this.state.currGridButton}
                                     />)
         }
         return pieces;
     }
 
-    onSelectedStyle(index) {
+    onSelectedButton(index) {
         this.setState({
             currGridButton: index
         });
+    }
+
+    onSelectedStyle(index) {
+        this.setState({
+            selectedStyle: index
+        })
     }
 
     increaseRows() {
