@@ -87,10 +87,9 @@ def upload_file():
         global counter
         image_num = str(counter)
 
-        file = request.files.args.get('CONTENT_TYPE')
+        file = request.files['args']
         print(request.__dict__)
-        print(request)
-        print(file)
+        print(request.files)
         print(file.content_length)
         # filename = './../IncomingImage' + image_num
         # file.save(filename + '.jpg')
