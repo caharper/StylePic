@@ -1,4 +1,4 @@
-from style_transfer import get_styled_image
+# from style_transfer import get_styled_image
 from flask import Flask
 from flask import send_file
 from flask import request, session
