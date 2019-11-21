@@ -126,8 +126,8 @@ def upload_file():
         image_num = str(counter)
 
         file = request.form['image']
-        print(type(file))
-        print(file)
+        # print(type(file))
+        # print(file)
         # print(file[-30:])
         #
         # file = file[:-4]
@@ -147,8 +147,8 @@ def upload_file():
         global styles
         # selected_styles = [styles[0], styles[1]]  # Add None if no style
         selected_styles = []
-        for x in arr[::1]:
-            selected_styles.append(styles[x])
+        for x in arr:
+            selected_styles.append(styles[int(x)])
 
         # output_img = get_styled_image(filename + '.jpg', selected_styles, num_rows=2, num_cols=1)
         # output_img = get_styled_image(filename, selected_styles, num_rows=2, num_cols=1)
