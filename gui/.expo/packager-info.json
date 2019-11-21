@@ -1,9 +1,18 @@
 {
   "devToolsPort": 19002,
+<<<<<<< HEAD
   "expoServerPort": null,
   "packagerPort": null,
   "packagerPid": null,
   "expoServerNgrokUrl": "https://yu-438.anonymous.gui.exp.direct",
   "packagerNgrokUrl": "https://packager.yu-438.anonymous.gui.exp.direct",
   "ngrokPid": 7683
+=======
+  "expoServerPort": 19000,
+  "packagerPort": 19001,
+  "packagerPid": 41156,
+  "expoServerNgrokUrl": null,
+  "packagerNgrokUrl": null,
+  "ngrokPid": null
+>>>>>>> 018ee13c6440a45d210f5500d1906f9301d4bd5f
 }
