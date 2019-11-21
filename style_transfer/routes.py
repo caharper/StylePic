@@ -88,15 +88,13 @@ def upload_file():
         image_num = str(counter)
 
         file = request.data
-        print(request.data)
-        print("____________")
+
+
         print(request.form)
+        print("REQ.FORM")
         print("____________")
 
-        print(request.args)
-        print("____________")
 
-        print(request.data)
 
 
         # filename = './../IncomingImage' + image_num
