@@ -1,4 +1,4 @@
-# from style_transfer import get_styled_image
+from style_transfer import get_styled_image
 from flask import Flask
 from flask import send_file
 from flask import request, session
@@ -13,7 +13,7 @@ from flask import request, jsonify, Response, render_template
 
 from werkzeug import secure_filename
 
-# import style_transfer
+import style_transfer
 
 PATH_TO_TEST_IMAGES_DIR = './images'
 
@@ -87,7 +87,17 @@ def upload_file():
         filename = './../IncomingImage' + image_num
         file.save(filename + '.jpg')
 
-        return "done"
+        global styles
+        selected_styles = [styles[0], styles[1]]  # Add None if no style
+
+        output_img = get_styled_image(filename + '.jpg', selected_styles, num_rows=2, num_cols=1)
+        output_img.save('./../returnImage' + image_num + '.jpg')
+        counter = counter + 1
+
+        return send_file(filename, mimetype='image/jpg')
+        # return "output_img"
+
+        # return "done"
         # convert numpy array to image
 
         # img = cv2.imdecode(npimg, cv2.CV_LOAD_IMAGE_UNCHANGED)
