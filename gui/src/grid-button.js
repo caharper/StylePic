@@ -3,19 +3,23 @@ import { TouchableOpacity, Dimensions, Image, View } from 'react-native';
 
 export default class GridButton extends React.Component {
 
-    state ={
-        rows: this.props.rows,
-        cols: this.props.cols,
-        highlight: false,
-        filter: this.props.filter
+    constructor(props) {
+        super(props);
+        this.state = {
+            rows: this.props.rows,
+            cols: this.props.cols,
+            filter: this.props.filter,
+            index: this.props.index
+        }
     }
 
-    highlightButton() {
-     //this.updateImage()
-        this.setState({ highlight: true });
-        setTimeout(() => {
-            this.setState({ highlight: false });
-          }, 450);
+    isSelected() {
+        if(this.props.currGridButton == this.state.index) {
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 
     componentDidUpdate(prevProps){
@@ -50,7 +54,7 @@ export default class GridButton extends React.Component {
         return (
             <View>
                 <TouchableOpacity 
-                style={this.state.highlight ?{
+                style={this.isSelected() ?{
                     zIndex: 1,
                     borderWidth: 3,
                     borderStyle: 'solid',
@@ -67,7 +71,7 @@ export default class GridButton extends React.Component {
                     height: (Dimensions.get('window').height)/1.6/this.state.rows,
                     zIndex: 1
                 }
-                } onPress={() => this.highlightButton()}/>
+                } onPress={this.props.onSelect}/>
                 {this.updateImage()}
             </View>
             

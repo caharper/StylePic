@@ -8,27 +8,36 @@ import { STYLES } from './style-list'
 import styles from './styles';
 
 export default class SelectionPage extends React.Component {
-
-    state = {
-        rows: 3,
-        cols: 3,
-        styleList: STYLES,
-        selectedStyle: 0
+    constructor(props) {
+        super(props);
+        this.state = {
+            stylesList: STYLES,
+            rows: 3,
+            cols: 3,
+            styleList: STYLES,
+            selectedStyle: 0,
+            currGridButton: -1,
+        }
     }
 
     renderPieces() {
         const pieces = [];
         for(let i = 0; i < (this.state.rows * this.state.cols); i++){
-            pieces.push(<GridButton key={i} rows={this.state.rows} 
-                                    cols={this.state.cols} 
-                                    filter={this.state.styleList[this.state.selectedStyle]}/>)
+            pieces.push(<GridButton key={i} 
+                                    index={i}
+                                    rows={this.state.rows} 
+                                    cols={this.state.cols}
+                                    filter={this.state.styleList[this.state.selectedStyle]}
+                                    onSelect={() => this.onSelectedStyle(i)}
+                                    currGridButton={this.state.currGridButton}
+                                    />)
         }
         return pieces;
     }
 
     onSelectedStyle(index) {
         this.setState({
-            selectedStyle: index
+            currGridButton: index
         });
     }
 
@@ -89,7 +98,7 @@ export default class SelectionPage extends React.Component {
     render () {
         return (
             this.props.location.state.captures.map(({ uri }) => (
-                <View style={{ flex: 1}} key={!this.isString(this.props.location.state.captures[0]) ? (
+                <View style={{ flex: 1 }} key={!this.isString(this.props.location.state.captures[0]) ? (
                     uri
                     ) : (
                     this.props.location.state.index
@@ -149,7 +158,7 @@ export default class SelectionPage extends React.Component {
                     </View>
                     <View style={styles.bottom}>
                         <View style={{borderTopWidth: 1}}>
-                            <StyleSlideBar boxNumber={"Style"} onSelect={this.onSelectedStyle.bind(this)}/>
+                            <StyleSlideBar boxNumber={"Styles"} onSelect={this.onSelectedStyle.bind(this)}/>
                         </View>
                     </View>
                     <TouchableOpacity style={styles.selectionAdvanceButton} onPress={() =>
