@@ -80,14 +80,14 @@ def upload_file():
 
         # filestr = request.files['uri'].read()
         # ret = str(type(filestr))
-        data = dict(request.form)
-        print(data)
-        return data
+        # data = dict(request.form)
+        # print(data)
+        # return data
 
         global counter
         image_num = str(counter)
 
-        file = request.files['b64']
+        file = request.files['image']
         # filename = './../IncomingImage' + image_num
         # file.save(filename + '.jpg')
 
