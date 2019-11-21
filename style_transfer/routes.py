@@ -11,7 +11,7 @@ from flask import request, jsonify, Response, render_template
 # from PIL import Image
 
 from werkzeug import secure_filename
-import style_transfer
+# import style_transfer
 
 PATH_TO_TEST_IMAGES_DIR = './images'
 
