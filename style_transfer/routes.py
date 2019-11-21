@@ -100,6 +100,8 @@ def load_img(path_to_img, num_rows, num_cols):
 
     img = img[tf.newaxis, :]
 
+    orig_shape = (orig_shape[1], orig_shape[0])
+
     return img, orig_shape
 
 def np_tensor(tensor):
