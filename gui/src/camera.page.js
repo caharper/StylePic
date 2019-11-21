@@ -47,12 +47,12 @@ export default class CameraPage extends React.Component {
         var body = new FormData();
         let url = 'http://35.226.239.3:5000/upload';
         var photo = {
-            b64: null,
+            image: null,
             type: 'image/jpg',
             name: 'photo.jpg'
         }
         this.state.captures.map(({ base64 }) =>(
-        photo.b64 = base64))
+        photo.image = base64))
         body.append('file',photo );
         console.log(body);
         fetch(url, {
