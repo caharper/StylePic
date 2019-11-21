@@ -3,6 +3,8 @@ import { View, Text } from 'react-native';
 import { Camera } from 'expo-camera';
 import * as Permissions from 'expo-permissions';
 import axios from 'axios';
+//import { RNFS } from 'react-native-fs';
+import ImgToBase64 from 'react-native-image-base64';
 
 import styles from './styles';
 import Toolbar from './toolbar.component';
@@ -32,18 +34,19 @@ export default class CameraPage extends React.Component {
     };
 
     submit() {
-        console.log(this.state.captures[0]);
-        let form_data = new FormData();
-        form_data.append('image', this.state.captures[0]);
-        let url = 'http://35.226.239.3:5000/upload';
-        //axios.get(url);
-        // axios.get(url)
-        // .then(function (response) {
-        // console.log(response);
+        // RNFetchBlob.config({fileCache: true})
+        // .fetch("POST", url);
+        // .then(res => {
+        //     console.log(res.data);
         // })
-        // .catch(function (error) {
-        // console.log(error);
-        // });
+        // .catch(err => console.log(err))
+        //var RNFS = require('react-native-fs')
+        //var base64data = RNFS.readFile(this.state.captures[0], 'base64');
+        //console.log(base64data);
+        console.log(this.state.captures[0].uri)
+        let form_data = new FormData();
+        form_data.append('file', this.state.captures[0]);
+        let url = 'http://35.226.239.3:5000/upload';
         axios.post(url, form_data, {
             headers: {
                 'content-type': 'multipart/form-data'
