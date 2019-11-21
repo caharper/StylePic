@@ -58,6 +58,7 @@ def index():
 @routes.route('/upload', methods=['GET', 'POST'])
 def upload_file():
     if request.method == 'POST':
+        '''
         target = os.path.join(UPLOAD_FOLDER, 'test_docs')
         if not os.path.isdir(target):
             os.mkdir(target)
@@ -69,17 +70,18 @@ def upload_file():
         session['uploadFilePath'] = destination
         response = "Whatever you wish too return"
         return response
-
+        '''
         # read image file string data
+        filestr = request.files['file'].read()
         # convert string data to numpy array
-        # npimg = numpy.fromstring(filestr, numpy.uint8)
-        # ret = str(type(npimg))
+        npimg = numpy.fromstring(filestr, numpy.uint8)
+        ret = str(type(npimg))
 
         # filestr = request.files['uri'].read()
         # ret = str(type(filestr))
-        # return ret
-
+        return ret
         # convert numpy array to image
+
         # img = cv2.imdecode(npimg, cv2.CV_LOAD_IMAGE_UNCHANGED)
 
         # num_rows = request.files['rows']
