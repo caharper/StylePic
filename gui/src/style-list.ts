@@ -1,10 +1,9 @@
 import { Style } from './style'
 
 export const STYLES: Style[] = [
-    {artist: "Harry", sampleImgUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTz5k7f8UCJh8IQPH1ZtARls00Q26YLY8g8cttQ2Vd3IGkeFKy5Iw&s"},
-    {artist: "Clay", sampleImgUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRoaO8wNyjQd94kkOT2SG1d9R3B_g7stI0D3Yhk7R3cbG4dvXzU5g&s"},
-    {artist: "Jake", sampleImgUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRpiUsi3ndBHKYwIjgSQkUkCezMWYX_5v9vxMYiC3UHujRNmN3F&s"},
-    {artist: "Gabi", sampleImgUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSAYGgQZpo7WPCozCGl4HFJ_zYHuASd1_BJs5qFlXSEoPDQjRlR&s"},
-    {artist: "Kirby", sampleImgUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5R-eAp_XhAFFE7QNlILQL5l1LlkeXF95ZiNlA4xirBVEPKzHdIQ&s"},
-    {artist: "Reid", sampleImgUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS1eoJoQK3nmHxhFjOynWHzwpdV-nAnHBtGxa55J265rUbqfvOFTw&s"}
+    {artist: "Dali", sampleImgUrl: "https://www.thelocal.es/userdata/images/article/fe3ba0c4c965ee405e49ccbae3ae3d49444c7b4c4cf76cac3e6e0f1151711a24.jpg"},
+    {artist: "Monet", sampleImgUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRJz-LByf5Iygg3FFo8A86Me7-3cW71cS4xi4sZkrJAXFUXbAIc"},
+    {artist: "Picasso", sampleImgUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQWksHEcLg0moTzAtSSpEynUyKFQnAA3zOahWEIRcZrzTw416QJ"},
+    {artist: "Pollock", sampleImgUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTvbowZTdwJf9zj3ukhTurOJg9iony-r3IE8U8puNL5XXz1ea3d"},
+    {artist: "Van Gogh", sampleImgUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRzPDJ0zq93-OOH7Sb19W-oWfaRd_4Z4ZFNMsqPuXFjkQv4BMzH"},
 ];
