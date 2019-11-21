@@ -1,8 +1,9 @@
 # from style_transfer import get_styled_image
 from flask import Flask
 from flask import send_file
-from flask import request
-#from flask_cors import CORS, cross_origin
+from flask import request, session
+
+# from flask_cors import CORS, cross_origin
 routes = Flask(__name__)
 
 from werkzeug.datastructures import ImmutableMultiDict
@@ -11,13 +12,21 @@ from flask import request, jsonify, Response, render_template
 # from PIL import Image
 
 from werkzeug import secure_filename
+
 # import style_transfer
 
 PATH_TO_TEST_IMAGES_DIR = './images'
 
 import numpy
-#import cv2
-#from cv2 import cv
+
+import os
+import logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger('HELLO WORLD')
+UPLOAD_FOLDER = './'
+
+# import cv2
+# from cv2 import cv
 
 # Example calling
 # styles = ['./../../groups.PNG', './../../navisworksInstallDirections.PNG']
@@ -35,7 +44,8 @@ https://www.twilio.com/docs/usage/tutorials/how-to-set-up-your-python-and-flask-
 Another link for reference: https://github.com/matt-sm/create-react-flask
 '''
 counter = 0
-styles = ['./../ArtistPics/dali.jpg', './../ArtistPics/monet.jpg', './../ArtistPics/picasso.jpg', './../ArtistPics/pollock.jpg', './../ArtistPics/van_gogh.jpg']
+styles = ['./../ArtistPics/dali.jpg', './../ArtistPics/monet.jpg', './../ArtistPics/picasso.jpg',
+          './../ArtistPics/pollock.jpg', './../ArtistPics/van_gogh.jpg']
 
 
 @routes.route("/")
@@ -43,16 +53,30 @@ def index():
     return "Hello World!"
 
 
-@routes.route('/upload', methods = ['GET','POST'])
+@routes.route('/upload', methods=['GET', 'POST'])
 def upload_file():
     if request.method == 'POST':
+        target = os.path.join(UPLOAD_FOLDER, 'test_docs')
+        if not os.path.isdir(target):
+            os.mkdir(target)
+        logger.info("welcome to upload`")
+        file = request.files['file']
+        filename = secure_filename(file.filename)
+        destination = "/".join([target, filename])
+        file.save(destination)
+        # session['uploadFilePath'] = destination
+        response = "Whatever you wish too return"
+        return response
+
         # read image file string data
-        filestr = request.files['uri'].read()
         # convert string data to numpy array
         # npimg = numpy.fromstring(filestr, numpy.uint8)
         # ret = str(type(npimg))
-        ret = str(type(filestr))
-        return ret
+
+        # filestr = request.files['uri'].read()
+        # ret = str(type(filestr))
+        # return ret
+
         # convert numpy array to image
         # img = cv2.imdecode(npimg, cv2.CV_LOAD_IMAGE_UNCHANGED)
 
@@ -70,7 +94,7 @@ def upload_file():
         '''
         # uploaded_files = request.files.getlist("file[]")
         # height = uploaded_files.pop()
-        
+
         global counter
         image_num = str(counter)
 
