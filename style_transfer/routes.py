@@ -147,7 +147,10 @@ def upload_file():
         global styles
         # selected_styles = [styles[0], styles[1]]  # Add None if no style
         selected_styles = []
+        print("styles: ", styles)
+        print('styles type: ', type(styles))
         for x in arr:
+            print('x: ', x)
             selected_styles.append(styles[int(x)])
 
         # output_img = get_styled_image(filename + '.jpg', selected_styles, num_rows=2, num_cols=1)
