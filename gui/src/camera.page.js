@@ -5,6 +5,7 @@ import * as Permissions from 'expo-permissions';
 import axios from 'axios';
 //import { RNFS } from 'react-native-fs';
 import ImgToBase64 from 'react-native-image-base64';
+//import {RNFetchBlob} from "react-native-fetch-blob";
 
 import styles from './styles';
 import Toolbar from './toolbar.component';
@@ -43,24 +44,62 @@ export default class CameraPage extends React.Component {
         //var RNFS = require('react-native-fs')
         //var base64data = RNFS.readFile(this.state.captures[0], 'base64');
         //console.log(base64data);
-        console.log(this.state.captures[0].uri)
-        let form_data = new FormData();
-        form_data.append('file', this.state.captures[0]);
+        var body = new FormData();
         let url = 'http://35.226.239.3:5000/upload';
-        axios.post(url, form_data, {
-            headers: {
-                'content-type': 'multipart/form-data'
-            }
-        })
-            .then(res => {
-                console.log(res.data);
-            })
-            .catch(err => console.log(err))
+        var photo = {
+            b64: null,
+            type: 'image/jpg',
+            name: 'photo.jpg'
+        }
+        this.state.captures.map(({ base64 }) =>(
+        photo.b64 = base64))
+        //var im = <Image source ={require(photo.file)}/>
+        // console.log(photo);
+        // var b64Str = null;
+        // b64Str = ImgToBase64.getBase64String(photo.file);
+        // console.log(b64Str);
+        // .then(base64String => doSomethingWith(base64String)(b64Str = base64String))
+        // .catch(err => doSomethingWith(err)(console.log(err)));
+        // body.append('photo', photo);
+        // body.append('title', 'This is a photo');
+        //var nphoto = JSON.stringify(photo);
+        body.append('file',photo );
+        console.log(body);
+        fetch(url, {
+            method: 'POST',
+            body
+        }).then((response) => {
+            console.log(response.text());
+        });
+        // var RNFetchBlob = require('react-native-fetch-blob')
+        // RNFetchBlob.fetch('POST', url, {
+        //     'image': JSON.stringify(photo),
+        // }, base64ImageString).then((res) => {
+        //     console.log(res.text())
+        // }).catch((err) =>{
+        //     console.log(err)
+        // })
+    
+      
+        // var xhr = new XMLHttpRequest();
+        // xhr.open('POST', url);
+        // xhr.send(body);
+        // .then(res => {
+        //     console.log(res.data);
+        // })
+        // .catch(err => console.log(err))
+        // axios.post(url, form_data, {
+        //     headers: {
+        //         'content-type': 'multipart/form-data'
+        //     }
+        // })
+
     };
 
 
     handleShortCapture = async () => {
-        const photoData = await this.camera.takePictureAsync();
+        const photoData = await this.camera.takePictureAsync({base64 : true});
+        console.log(photoData);
         this.setState({ capturing: false, captures: [photoData, ...this.state.captures] })
         this.submit();
         //change scene once photo is taken
