@@ -23,7 +23,7 @@ import os
 import logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger('HELLO WORLD')
-UPLOAD_FOLDER = './'
+UPLOAD_FOLDER = './../'
 
 # import cv2
 # from cv2 import cv
