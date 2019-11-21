@@ -113,7 +113,7 @@ def upload_file():
         rows = request.form['rows']
         cols = request.form['cols']
         arr = request.form['arr']
-        arr = arr.split()
+        arr = list(map(int, arr))
         # print(type(arr))
         # arr = arr[1:]
         # ret_arr = []
