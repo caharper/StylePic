@@ -92,8 +92,6 @@ def upload_file():
         print(request.files)
         print("________________")
         file = request.json
-
-        print(file.content_length)
         # filename = './../IncomingImage' + image_num
         # file.save(filename + '.jpg')
 
