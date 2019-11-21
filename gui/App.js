@@ -4,6 +4,7 @@ import CameraPage from './src/camera.page';
 import StylePage from './src/style.page';
 import SelectionPage from './src/selection.page'
 import CameraRollPage from './src/camera.roll'
+import FinalPage from './src/final.page'
 
 export default class App extends React.Component {
     render() {
@@ -13,6 +14,7 @@ export default class App extends React.Component {
                 <Route exact path="/style.page" component={StylePage} />
                 <Route exact path="/selection.page" component={SelectionPage} />
                 <Route exact path="/camera.roll.page" component={CameraRollPage} />
+                <Route exact path="/final.page" component={FinalPage} />
             </NativeRouter>
         );
     };
