@@ -16,6 +16,7 @@ from werkzeug import secure_filename
 import style_transfer
 
 PATH_TO_TEST_IMAGES_DIR = './images'
+from io import BytesIO
 
 import numpy
 
@@ -100,7 +101,7 @@ def load_img(path_to_img, num_rows, num_cols):
 
     img = img[tf.newaxis, :]
 
-    orig_shape = (orig_shape[1], orig_shape[0])
+    # orig_shape = (orig_shape[1], orig_shape[0])
 
     return img, orig_shape
 
@@ -416,8 +417,14 @@ def upload_file():
         output_img.save('./../returnImage' + image_num + '.jpg')
         counter = counter + 1
 
+        # ret_img = base64.b64encode('./../returnImage' + image_num + '.jpg')
+        buffered = BytesIO()
+        output_img.save(buffered, format="JPEG")
+        img_str = base64.b64encode(buffered.getValue())
+        return img_str
+
         # return send_file('../returnImage' + image_num + '.jpg', mimetype='image/jpg')
-        return send_file('./../IncomingImage' + image_num + '.jpg', mimetype='image/jpg')
+        # return send_file('./../IncomingImage' + image_num + '.jpg', mimetype='image/jpg')
         # return "output_img"
 
         # return "done"
