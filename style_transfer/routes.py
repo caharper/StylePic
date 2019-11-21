@@ -1,4 +1,4 @@
-# from style_transfer import get_styled_image
+from style_transfer import get_styled_image
 from flask import Flask
 from flask import send_file
 from flask import request
@@ -11,7 +11,7 @@ from flask import request, jsonify, Response, render_template
 # from PIL import Image
 
 from werkzeug import secure_filename
-# import style_transfer
+import style_transfer
 
 PATH_TO_TEST_IMAGES_DIR = './images'
 
@@ -47,12 +47,12 @@ def index():
 def upload_file():
     if request.method == 'POST':
         # read image file string data
-        filestr = request.files['uri'].read()
+        # filestr = request.files['uri'].read()
         # convert string data to numpy array
         # npimg = numpy.fromstring(filestr, numpy.uint8)
         # ret = str(type(npimg))
-        ret = str(type(filestr))
-        return ret
+        # ret = str(type(filestr))
+        # return ret
         # convert numpy array to image
         # img = cv2.imdecode(npimg, cv2.CV_LOAD_IMAGE_UNCHANGED)
 
@@ -67,7 +67,7 @@ def upload_file():
         # value = dict['uri']  # get the `value` of `key` in `dictionary`.
         # dict[key] = newvalue  # change the content of `key` in `dictionary` to `newvalue`.
 
-        '''
+
         # uploaded_files = request.files.getlist("file[]")
         # height = uploaded_files.pop()
         
@@ -77,6 +77,8 @@ def upload_file():
         file = request.files['uri']
         filename = './../IncomingImage' + image_num
         file.save(filename + '.jpg')
+
+        # height = request.files['height'].read()
 
         # height = request.files['height']
         # width = request.files['width']
@@ -91,7 +93,7 @@ def upload_file():
         output_img.save('./../returnImage' + image_num + '.jpg')
         counter = counter + 1
         return './../returnImage' + image_num + '.jpg'
-        '''
+
     else:
         return "This is a GET bro"
 
