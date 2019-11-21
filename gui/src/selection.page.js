@@ -3,6 +3,7 @@ import StyleSlideBar from './style-slide-bar'
 import { Text, View, Image, ImageBackground, TouchableOpacity, Dimensions, TextInput, StatusBar } from 'react-native'
 import { Ionicons } from '@expo/vector-icons';
 import GridButton from './grid-button.js'
+import { STYLES } from './style-list'
 
 import styles from './styles';
 
@@ -11,14 +12,24 @@ export default class SelectionPage extends React.Component {
     state = {
         rows: 3,
         cols: 3,
+        styleList: STYLES,
+        selectedStyle: 0
     }
 
     renderPieces() {
         const pieces = [];
         for(let i = 0; i < (this.state.rows * this.state.cols); i++){
-            pieces.push(<GridButton key={i} rows={this.state.rows} cols={this.state.cols}/>)
+            pieces.push(<GridButton key={i} rows={this.state.rows} 
+                                    cols={this.state.cols} 
+                                    filter={this.state.styleList[this.state.selectedStyle]}/>)
         }
         return pieces;
+    }
+
+    onSelectedStyle(index) {
+        this.setState({
+            selectedStyle: index
+        });
     }
 
     increaseRows() {
@@ -56,8 +67,8 @@ export default class SelectionPage extends React.Component {
     
     MyStatusBar() {
         return(
-            <View style={{height: 20, backgroundColor: "#133761" }}>
-                <StatusBar translucent backgroundColor="#133761" barStyle="light-content" />
+            <View style={{height: 20, backgroundColor: "gray" }}>
+                <StatusBar translucent backgroundColor="gray" barStyle="light-content" />
             </View>
         )
     }
@@ -83,6 +94,7 @@ export default class SelectionPage extends React.Component {
                     ) : (
                     this.props.location.state.index
                     )}>
+                    {this.MyStatusBar()}
                     <View style={styles.gridContainer}>
                         <View style={{position: 'absolute'}}>
                             {!this.isString(this.props.location.state.captures[0]) ? (
@@ -137,14 +149,14 @@ export default class SelectionPage extends React.Component {
                     </View>
                     <View style={styles.bottom}>
                         <View style={{borderTopWidth: 1}}>
-                            <StyleSlideBar boxNumber={"Style"}/>
+                            <StyleSlideBar boxNumber={"Style"} onSelect={this.onSelectedStyle.bind(this)}/>
                         </View>
                     </View>
                     <TouchableOpacity style={styles.selectionAdvanceButton} onPress={() =>
                         this.advanceState()}>
                         <Ionicons
                             name="md-arrow-round-forward"
-                            color="grey"
+                            color="green"
                             size={40}
                         />
                     </TouchableOpacity>
@@ -152,7 +164,7 @@ export default class SelectionPage extends React.Component {
                         this.moveBackState()}>
                         <Ionicons
                             name="md-arrow-round-back"
-                            color="grey"
+                            color="red"
                             size={40}
                         />
                     </TouchableOpacity>

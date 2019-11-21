@@ -19,7 +19,8 @@ export default class StyleSlideBar extends React.Component {
     onSelect(index) {
         this.setState({
             selectedStyle: index
-        })
+        });
+        this.props.onSelect(index)
     }
 
     render() {
