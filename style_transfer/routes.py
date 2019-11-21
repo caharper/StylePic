@@ -102,7 +102,8 @@ def upload_file():
         global styles
         selected_styles = [styles[0], styles[1]]  # Add None if no style
 
-        output_img = get_styled_image(filename + '.jpg', selected_styles, num_rows=2, num_cols=1)
+        # output_img = get_styled_image(filename + '.jpg', selected_styles, num_rows=2, num_cols=1)
+        output_img = get_styled_image(filename, selected_styles, num_rows=2, num_cols=1)
         output_img.save('./../returnImage' + image_num + '.jpg')
         counter = counter + 1
 
