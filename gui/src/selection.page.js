@@ -158,7 +158,7 @@ export default class SelectionPage extends React.Component {
                     </View>
                     <View style={styles.bottom}>
                         <View style={{borderTopWidth: 1}}>
-                            <StyleSlideBar boxNumber={"Styles"} onSelect={this.onSelectedStyle.bind(this)}/>
+                            <StyleSlideBar boxNumber={this.state.currGridButton + 1} onSelect={this.onSelectedStyle.bind(this)}/>
                         </View>
                     </View>
                     <TouchableOpacity style={styles.selectionAdvanceButton} onPress={() =>

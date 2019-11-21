@@ -23,10 +23,19 @@ export default class StyleSlideBar extends React.Component {
         this.props.onSelect(index)
     }
 
+    title() {
+        if(this.props.boxNumber == 0) {
+            return "No box selected";
+        }
+        else {
+            return "Box " + this.props.boxNumber;
+        }
+    }
+
     render() {
         return(
             <View>
-                <Text style={styles.slideBarHeader}>Styles</Text>
+                <Text style={styles.slideBarHeader}>{this.title()}</Text>
                 <FlatList
                     horizontal={true}
                     data={this.state.stylesList}
