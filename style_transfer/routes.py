@@ -88,9 +88,10 @@ def upload_file():
         image_num = str(counter)
 
         file = request.form['image']
+        print(file[-30:])
 
         file = file[:-4]
-        print(file)
+        print(file[-30:])
 
 
 
