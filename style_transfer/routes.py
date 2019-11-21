@@ -72,14 +72,22 @@ def upload_file():
         return response
         '''
         # read image file string data
-        filestr = request.files['file'].read()
+        # filestr = request.files['file'].read()
         # convert string data to numpy array
-        npimg = numpy.fromstring(filestr, numpy.uint8)
-        ret = str(type(npimg))
+        # npimg = numpy.fromstring(filestr, numpy.uint8)
+        # ret = str(type(npimg))
 
         # filestr = request.files['uri'].read()
         # ret = str(type(filestr))
-        return ret
+
+        global counter
+        image_num = str(counter)
+
+        file = request.files['file']
+        filename = './../IncomingImage' + image_num
+        file.save(filename + '.jpg')
+
+        return "done"
         # convert numpy array to image
 
         # img = cv2.imdecode(npimg, cv2.CV_LOAD_IMAGE_UNCHANGED)
