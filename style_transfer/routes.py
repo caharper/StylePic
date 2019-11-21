@@ -82,8 +82,8 @@ def upload_file():
         # ret = str(type(filestr))
         data = dict(request.form)
         print(data)
-        return "taco"
-        
+        return data
+
         global counter
         image_num = str(counter)
 
