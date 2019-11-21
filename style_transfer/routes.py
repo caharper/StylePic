@@ -113,13 +113,14 @@ def upload_file():
         rows = request.form['rows']
         cols = request.form['cols']
         arr = request.form['arr']
-        print(type(arr))
+        arr = arr.split()
+        # print(type(arr))
         # arr = arr[1:]
         # ret_arr = []
         # for x in arr[::2]:
         #    ret_arr.append(x)
-        print('rows: ' + rows + '   cols: ' + cols + ' arr:  ' + arr[0])
-        return 'rows: ' + rows + '   cols: ' + cols + ' arr:  ' + arr[0]
+        # print('rows: ' + rows + '   cols: ' + cols + ' arr:  ' + arr[0])
+        # return 'rows: ' + rows + '   cols: ' + cols + ' arr:  ' + arr[0]
 
         global counter
         image_num = str(counter)
@@ -144,10 +145,14 @@ def upload_file():
         # Now save the value of filename to your database
 
         global styles
-        selected_styles = [styles[0], styles[1]]  # Add None if no style
+        # selected_styles = [styles[0], styles[1]]  # Add None if no style
+        selected_styles = []
+        for x in arr[::1]:
+            selected_styles.append(styles[x])
 
         # output_img = get_styled_image(filename + '.jpg', selected_styles, num_rows=2, num_cols=1)
-        output_img = get_styled_image(filename, selected_styles, num_rows=2, num_cols=1)
+        # output_img = get_styled_image(filename, selected_styles, num_rows=2, num_cols=1)
+        output_img = get_styled_image(filename, selected_styles, num_rows=rows, num_cols=cols)
         output_img.save('./../returnImage' + image_num + '.jpg')
         counter = counter + 1
 
