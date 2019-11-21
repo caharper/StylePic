@@ -51,183 +51,6 @@ import os
 os.environ["TFHUB_CACHE_DIR"] = '/tmp/tfhub'
 hub_module = hub.load('https://tfhub.dev/google/magenta/arbitrary-image-stylization-v1-256/2')
 
-'''
-https://stackoverflow.com/questions/43309343/working-with-user-uploaded-image-in-flask
-
-Link to a stackoverflow post where the guy did something very similar to what we are doing.
-
-Also here is some documentation on flask and how to test it and get it to run: 
-https://www.twilio.com/docs/usage/tutorials/how-to-set-up-your-python-and-flask-development-environment
-
-Another link for reference: https://github.com/matt-sm/create-react-flask
-'''
-counter = 0
-styles = ['./../ArtistPics/dali.jpg', './../ArtistPics/monet.jpg', './../ArtistPics/picasso.jpg',
-          './../ArtistPics/pollock.jpg', './../ArtistPics/van_gogh.jpg']
-
-styles = {'0': './../ArtistPics/dali.jpg',
-          '1': './../ArtistPics/monet.jpg',
-          '2': './../ArtistPics/picasso.jpg',
-          '3': './../ArtistPics/pollock.jpg',
-          '4': './../ArtistPics/van_gogh.jpg',
-          '9': None
-          }
-
-
-@routes.route("/")
-def index():
-    return "Hello World!"
-
-
-@routes.route('/upload', methods=['GET', 'POST'])
-def upload_file():
-    if request.method == 'POST':
-        '''
-        target = os.path.join(UPLOAD_FOLDER, 'test_docs')
-        if not os.path.isdir(target):
-            os.mkdir(target)
-        logger.info("welcome to upload`")
-        file = request.files['file']
-        filename = secure_filename(file.filename)
-        destination = "/".join([target, filename])
-        file.save(destination)
-        session['uploadFilePath'] = destination
-        response = "Whatever you wish too return"
-        return response
-        '''
-        # read image file string data
-        # filestr = request.files['file'].read()
-        # convert string data to numpy array
-        # npimg = numpy.fromstring(filestr, numpy.uint8)
-        # ret = str(type(npimg))
-
-        # filestr = request.files['uri'].read()
-        # ret = str(type(filestr))
-        # data = dict(request.form)
-        # print(data)
-        # return data
-        '''
-        rows = request.values.get('rows')
-        cols = request.values.get('cols')
-        arr = request.values.get('arr')
-        arr = arr[1:]
-        ret_arr = []
-        for x in arr[::2]:
-            ret_arr.append(x)
-        print('rows: ' + rows + '   cols: ' + cols + '  array element 1: ' + ret_arr[0])
-        return 'rows: ' + rows + '   cols: ' + cols + '  array element 1: ' + ret_arr[0]
-        '''
-        global styles
-        rows = request.form['rows']
-        cols = request.form['cols']
-        arr = request.form['arr']
-        print(arr[0])
-        selected_styles = []
-        for x in arr:
-            if x == ',':
-                continue
-            selected_styles.append(styles[x])
-        # arr = list(map(int, arr))
-        # print(type(arr))
-        # arr = arr[1:]
-        # ret_arr = []
-        # for x in arr[::2]:
-        #    ret_arr.append(x)
-        # print('rows: ' + rows + '   cols: ' + cols + ' arr:  ' + arr[0])
-        # return 'rows: ' + rows + '   cols: ' + cols + ' arr:  ' + arr[0]
-
-        global counter
-        image_num = str(counter)
-
-        file = request.form['image']
-        # print(type(file))
-        # print(file)
-        # print(file[-30:])
-        #
-        # file = file[:-4]
-        # print(file[-30:])
-
-        # filename = './../IncomingImage' + image_num
-        # file.save(filename + '.jpg')
-
-        imgdata = base64.b64decode(file)
-        filename = './../IncomingImage' + image_num + '.jpg'
-        # imgdata.save(filename + '.jpg')
-        with open(filename, 'wb') as f:
-            f.write(imgdata)
-        # f gets closed when you exit the with statement
-        # Now save the value of filename to your database
-        '''
-        global styles
-        # selected_styles = [styles[0], styles[1]]  # Add None if no style
-        selected_styles = []
-        print("styles: ", styles)
-        print('styles type: ', type(styles))
-        for x in arr:
-            print('x: ', x)
-            selected_styles.append(styles[int(x)])
-        '''
-
-        # output_img = get_styled_image(filename + '.jpg', selected_styles, num_rows=2, num_cols=1)
-        # output_img = get_styled_image(filename, selected_styles, num_rows=2, num_cols=1)
-        output_img = get_styled_image(filename, selected_styles, num_rows=int(rows), num_cols=int(cols))
-        output_img.save('./../returnImage' + image_num + '.jpg')
-        counter = counter + 1
-
-        # return send_file('../returnImage' + image_num + '.jpg', mimetype='image/jpg')
-        return send_file('./../IncomingImage' + image_num + '.jpg', mimetype='image/jpg')
-        # return "output_img"
-
-        # return "done"
-        # convert numpy array to image
-
-        # img = cv2.imdecode(npimg, cv2.CV_LOAD_IMAGE_UNCHANGED)
-
-        # num_rows = request.files['rows']
-        # num_rows = request.get_json('rows')
-        # num_cols = request.get_json('cols')
-        # return num_rows + '    ' + num_cols
-        # data = request.get_json('height')
-        # return data
-
-        # data = dict(request.form)
-        # value = dict['uri']  # get the `value` of `key` in `dictionary`.
-        # dict[key] = newvalue  # change the content of `key` in `dictionary` to `newvalue`.
-
-        '''
-        # uploaded_files = request.files.getlist("file[]")
-        # height = uploaded_files.pop()
-
-        global counter
-        image_num = str(counter)
-
-        file = request.files['uri']
-        filename = './../IncomingImage' + image_num
-        file.save(filename + '.jpg')
-
-        # height = request.files['height']
-        # width = request.files['width']
-
-        # ret_height = str(height)
-        # ret_width = str(width)
-
-        global styles
-        selected_styles = [styles[0], styles[1]] #Add None if no style
-
-        output_img = get_styled_image(filename + '.jpg', selected_styles, num_rows=2, num_cols=1)
-        output_img.save('./../returnImage' + image_num + '.jpg')
-        counter = counter + 1
-        return './../returnImage' + image_num + '.jpg'
-        '''
-    else:
-        return "This is a GET bro"
-
-
-if __name__ == "__main__":
-    # routes.run(host='0.0.0.0')
-    routes.secret_key = os.urandom(24)
-    routes.run(host="0.0.0.0", use_reloader=False)
-
 
 # Based on what I've seen the code rounds up to the next multiple of the image and then rounds to the next even number if odd
 def calc_resize_shape(x_shape, y_shape, num_rows, num_cols):
@@ -467,6 +290,183 @@ def get_styled_image(file_path, styles, num_rows=1, num_cols=1):
 # img = np.asarray(PIL.Image.open('./../../code/test_images/j_pollock.jpg'))
 # print(type(img))
 # print(img.shape)
+
+'''
+https://stackoverflow.com/questions/43309343/working-with-user-uploaded-image-in-flask
+
+Link to a stackoverflow post where the guy did something very similar to what we are doing.
+
+Also here is some documentation on flask and how to test it and get it to run: 
+https://www.twilio.com/docs/usage/tutorials/how-to-set-up-your-python-and-flask-development-environment
+
+Another link for reference: https://github.com/matt-sm/create-react-flask
+'''
+counter = 0
+styles = ['./../ArtistPics/dali.jpg', './../ArtistPics/monet.jpg', './../ArtistPics/picasso.jpg',
+          './../ArtistPics/pollock.jpg', './../ArtistPics/van_gogh.jpg']
+
+styles = {'0': './../ArtistPics/dali.jpg',
+          '1': './../ArtistPics/monet.jpg',
+          '2': './../ArtistPics/picasso.jpg',
+          '3': './../ArtistPics/pollock.jpg',
+          '4': './../ArtistPics/van_gogh.jpg',
+          '9': None
+          }
+
+
+@routes.route("/")
+def index():
+    return "Hello World!"
+
+
+@routes.route('/upload', methods=['GET', 'POST'])
+def upload_file():
+    if request.method == 'POST':
+        '''
+        target = os.path.join(UPLOAD_FOLDER, 'test_docs')
+        if not os.path.isdir(target):
+            os.mkdir(target)
+        logger.info("welcome to upload`")
+        file = request.files['file']
+        filename = secure_filename(file.filename)
+        destination = "/".join([target, filename])
+        file.save(destination)
+        session['uploadFilePath'] = destination
+        response = "Whatever you wish too return"
+        return response
+        '''
+        # read image file string data
+        # filestr = request.files['file'].read()
+        # convert string data to numpy array
+        # npimg = numpy.fromstring(filestr, numpy.uint8)
+        # ret = str(type(npimg))
+
+        # filestr = request.files['uri'].read()
+        # ret = str(type(filestr))
+        # data = dict(request.form)
+        # print(data)
+        # return data
+        '''
+        rows = request.values.get('rows')
+        cols = request.values.get('cols')
+        arr = request.values.get('arr')
+        arr = arr[1:]
+        ret_arr = []
+        for x in arr[::2]:
+            ret_arr.append(x)
+        print('rows: ' + rows + '   cols: ' + cols + '  array element 1: ' + ret_arr[0])
+        return 'rows: ' + rows + '   cols: ' + cols + '  array element 1: ' + ret_arr[0]
+        '''
+        global styles
+        rows = request.form['rows']
+        cols = request.form['cols']
+        arr = request.form['arr']
+        print(arr[0])
+        selected_styles = []
+        for x in arr:
+            if x == ',':
+                continue
+            selected_styles.append(styles[x])
+        # arr = list(map(int, arr))
+        # print(type(arr))
+        # arr = arr[1:]
+        # ret_arr = []
+        # for x in arr[::2]:
+        #    ret_arr.append(x)
+        # print('rows: ' + rows + '   cols: ' + cols + ' arr:  ' + arr[0])
+        # return 'rows: ' + rows + '   cols: ' + cols + ' arr:  ' + arr[0]
+
+        global counter
+        image_num = str(counter)
+
+        file = request.form['image']
+        # print(type(file))
+        # print(file)
+        # print(file[-30:])
+        #
+        # file = file[:-4]
+        # print(file[-30:])
+
+        # filename = './../IncomingImage' + image_num
+        # file.save(filename + '.jpg')
+
+        imgdata = base64.b64decode(file)
+        filename = './../IncomingImage' + image_num + '.jpg'
+        # imgdata.save(filename + '.jpg')
+        with open(filename, 'wb') as f:
+            f.write(imgdata)
+        # f gets closed when you exit the with statement
+        # Now save the value of filename to your database
+        '''
+        global styles
+        # selected_styles = [styles[0], styles[1]]  # Add None if no style
+        selected_styles = []
+        print("styles: ", styles)
+        print('styles type: ', type(styles))
+        for x in arr:
+            print('x: ', x)
+            selected_styles.append(styles[int(x)])
+        '''
+
+        # output_img = get_styled_image(filename + '.jpg', selected_styles, num_rows=2, num_cols=1)
+        # output_img = get_styled_image(filename, selected_styles, num_rows=2, num_cols=1)
+        output_img = get_styled_image(filename, selected_styles, num_rows=int(rows), num_cols=int(cols))
+        output_img.save('./../returnImage' + image_num + '.jpg')
+        counter = counter + 1
+
+        # return send_file('../returnImage' + image_num + '.jpg', mimetype='image/jpg')
+        return send_file('./../IncomingImage' + image_num + '.jpg', mimetype='image/jpg')
+        # return "output_img"
+
+        # return "done"
+        # convert numpy array to image
+
+        # img = cv2.imdecode(npimg, cv2.CV_LOAD_IMAGE_UNCHANGED)
+
+        # num_rows = request.files['rows']
+        # num_rows = request.get_json('rows')
+        # num_cols = request.get_json('cols')
+        # return num_rows + '    ' + num_cols
+        # data = request.get_json('height')
+        # return data
+
+        # data = dict(request.form)
+        # value = dict['uri']  # get the `value` of `key` in `dictionary`.
+        # dict[key] = newvalue  # change the content of `key` in `dictionary` to `newvalue`.
+
+        '''
+        # uploaded_files = request.files.getlist("file[]")
+        # height = uploaded_files.pop()
+
+        global counter
+        image_num = str(counter)
+
+        file = request.files['uri']
+        filename = './../IncomingImage' + image_num
+        file.save(filename + '.jpg')
+
+        # height = request.files['height']
+        # width = request.files['width']
+
+        # ret_height = str(height)
+        # ret_width = str(width)
+
+        global styles
+        selected_styles = [styles[0], styles[1]] #Add None if no style
+
+        output_img = get_styled_image(filename + '.jpg', selected_styles, num_rows=2, num_cols=1)
+        output_img.save('./../returnImage' + image_num + '.jpg')
+        counter = counter + 1
+        return './../returnImage' + image_num + '.jpg'
+        '''
+    else:
+        return "This is a GET bro"
+
+
+if __name__ == "__main__":
+    # routes.run(host='0.0.0.0')
+    routes.secret_key = os.urandom(24)
+    routes.run(host="0.0.0.0", use_reloader=False)
 
 flask_cors.CORS(routes, expose_headers='Authorization')
 
