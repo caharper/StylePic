@@ -27,6 +27,7 @@ logger = logging.getLogger('HELLO WORLD')
 UPLOAD_FOLDER = './../'
 routes.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
+import base64
 # import cv2
 # from cv2 import cv
 
@@ -84,8 +85,15 @@ def upload_file():
         image_num = str(counter)
 
         file = request.files['file']
+        # filename = './../IncomingImage' + image_num
+        # file.save(filename + '.jpg')
+
+        imgdata = base64.b64decode(file)
         filename = './../IncomingImage' + image_num
-        file.save(filename + '.jpg')
+        with open(filename, 'wb') as f:
+            f.write(imgdata)
+        # f gets closed when you exit the with statement
+        # Now save the value of filename to your database
 
         global styles
         selected_styles = [styles[0], styles[1]]  # Add None if no style
