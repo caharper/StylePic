@@ -53,16 +53,6 @@ export default class CameraPage extends React.Component {
         }
         this.state.captures.map(({ base64 }) =>(
         photo.b64 = base64))
-        //var im = <Image source ={require(photo.file)}/>
-        // console.log(photo);
-        // var b64Str = null;
-        // b64Str = ImgToBase64.getBase64String(photo.file);
-        // console.log(b64Str);
-        // .then(base64String => doSomethingWith(base64String)(b64Str = base64String))
-        // .catch(err => doSomethingWith(err)(console.log(err)));
-        // body.append('photo', photo);
-        // body.append('title', 'This is a photo');
-        //var nphoto = JSON.stringify(photo);
         body.append('file',photo );
         console.log(body);
         fetch(url, {
