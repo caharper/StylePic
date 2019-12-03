@@ -1,3 +1,11 @@
+# uses hub module https://tfhub.dev/google/magenta/arbitrary-image-stylization-v1-256/2
+# we modified it to take segments of images in and recombine them to a final image to make a collage
+# we had to resize images to be able to recombine them when doing a collage because the hub module 
+# resizes images in an unknown fashion.  Input image sizes are stored, and the adjusted output image 
+# is resized to be the same size as the input before sending back to the frontend
+
+
+
 import tensorflow as tf
 tf.enable_eager_execution()
 
